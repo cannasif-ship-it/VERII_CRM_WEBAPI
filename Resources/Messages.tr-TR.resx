@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Authentication Messages -->
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>Geçersiz e-posta veya şifre.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>Giriş başarılı.</value>
+  </data>
+  <data name="UserRegistered" xml:space="preserve">
+    <value>Kullanıcı başarıyla kaydedildi.</value>
+  </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>E-posta adresi zaten mevcut.</value>
+  </data>
+  <data name="UsernameAlreadyExists" xml:space="preserve">
+    <value>Kullanıcı adı zaten mevcut.</value>
+  </data>
+  
+  <!-- User Messages -->
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Kullanıcı bulunamadı.</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>Kullanıcı başarıyla oluşturuldu.</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>Kullanıcı başarıyla güncellendi.</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>Kullanıcı başarıyla silindi.</value>
+  </data>
+  <data name="UserRetrieved" xml:space="preserve">
+    <value>Kullanıcı başarıyla getirildi.</value>
+  </data>
+  <data name="UsersRetrieved" xml:space="preserve">
+    <value>Kullanıcılar başarıyla getirildi.</value>
+  </data>
+  
+  <!-- General Messages -->
+  <data name="ValidationError" xml:space="preserve">
+    <value>Doğrulama hatası oluştu.</value>
+  </data>
+  <data name="InternalServerError" xml:space="preserve">
+    <value>Dahili sunucu hatası oluştu.</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>Yetkisiz erişim.</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>Erişim yasak.</value>
+  </data>
+  <data name="AccountInactive" xml:space="preserve">
+    <value>Hesabınız aktif değil.</value>
+  </data>
+  
+  <!-- City Messages -->
+  <data name="CitiesRetrieved" xml:space="preserve">
+    <value>Şehirler başarıyla getirildi.</value>
+  </data>
+  <data name="CityNotFound" xml:space="preserve">
+    <value>Şehir bulunamadı.</value>
+  </data>
+  <data name="CityRetrieved" xml:space="preserve">
+    <value>Şehir başarıyla getirildi.</value>
+  </data>
+  <data name="CityCreated" xml:space="preserve">
+    <value>Şehir başarıyla oluşturuldu.</value>
+  </data>
+  <data name="CityUpdated" xml:space="preserve">
+    <value>Şehir başarıyla güncellendi.</value>
+  </data>
+  <data name="CityDeleted" xml:space="preserve">
+    <value>Şehir başarıyla silindi.</value>
+  </data>
+  <data name="ErrorRetrievingCities" xml:space="preserve">
+    <value>Şehirler getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorRetrievingCity" xml:space="preserve">
+    <value>Şehir getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorCreatingCity" xml:space="preserve">
+    <value>Şehir oluşturulurken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorUpdatingCity" xml:space="preserve">
+    <value>Şehir güncellenirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeletingCity" xml:space="preserve">
+    <value>Şehir silinirken bir hata oluştu.</value>
+  </data>
+  
+  <!-- Country Messages -->
+  <data name="CountriesRetrieved" xml:space="preserve">
+    <value>Ülkeler başarıyla getirildi.</value>
+  </data>
+  <data name="CountryNotFound" xml:space="preserve">
+    <value>Ülke bulunamadı.</value>
+  </data>
+  <data name="CountryRetrieved" xml:space="preserve">
+    <value>Ülke başarıyla getirildi.</value>
+  </data>
+  <data name="CountryCreated" xml:space="preserve">
+    <value>Ülke başarıyla oluşturuldu.</value>
+  </data>
+  <data name="CountryUpdated" xml:space="preserve">
+    <value>Ülke başarıyla güncellendi.</value>
+  </data>
+  <data name="CountryDeleted" xml:space="preserve">
+    <value>Ülke başarıyla silindi.</value>
+  </data>
+  <data name="ErrorRetrievingCountries" xml:space="preserve">
+    <value>Ülkeler getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorRetrievingCountry" xml:space="preserve">
+    <value>Ülke getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorCreatingCountry" xml:space="preserve">
+    <value>Ülke oluşturulurken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorUpdatingCountry" xml:space="preserve">
+    <value>Ülke güncellenirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeletingCountry" xml:space="preserve">
+    <value>Ülke silinirken bir hata oluştu.</value>
+  </data>
+  
+  <!-- District Messages -->
+  <data name="DistrictsRetrieved" xml:space="preserve">
+    <value>İlçeler başarıyla getirildi.</value>
+  </data>
+  <data name="DistrictNotFound" xml:space="preserve">
+    <value>İlçe bulunamadı.</value>
+  </data>
+  <data name="DistrictRetrieved" xml:space="preserve">
+    <value>İlçe başarıyla getirildi.</value>
+  </data>
+  <data name="DistrictCreated" xml:space="preserve">
+    <value>İlçe başarıyla oluşturuldu.</value>
+  </data>
+  <data name="DistrictUpdated" xml:space="preserve">
+    <value>İlçe başarıyla güncellendi.</value>
+  </data>
+  <data name="DistrictDeleted" xml:space="preserve">
+    <value>İlçe başarıyla silindi.</value>
+  </data>
+  <data name="ErrorRetrievingDistricts" xml:space="preserve">
+    <value>İlçeler getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorRetrievingDistrict" xml:space="preserve">
+    <value>İlçe getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorCreatingDistrict" xml:space="preserve">
+    <value>İlçe oluşturulurken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorUpdatingDistrict" xml:space="preserve">
+    <value>İlçe güncellenirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeletingDistrict" xml:space="preserve">
+    <value>İlçe silinirken bir hata oluştu.</value>
+  </data>
+  
+  <!-- Title Messages -->
+  <data name="TitlesRetrieved" xml:space="preserve">
+    <value>Unvanlar başarıyla getirildi.</value>
+  </data>
+  <data name="TitleNotFound" xml:space="preserve">
+    <value>Unvan bulunamadı.</value>
+  </data>
+  <data name="TitleRetrieved" xml:space="preserve">
+    <value>Unvan başarıyla getirildi.</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Unvan başarıyla oluşturuldu.</value>
+  </data>
+  <data name="TitleUpdated" xml:space="preserve">
+    <value>Unvan başarıyla güncellendi.</value>
+  </data>
+  <data name="TitleDeleted" xml:space="preserve">
+    <value>Unvan başarıyla silindi.</value>
+  </data>
+  <data name="ErrorRetrievingTitles" xml:space="preserve">
+    <value>Unvanlar getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorRetrievingTitle" xml:space="preserve">
+    <value>Unvan getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorCreatingTitle" xml:space="preserve">
+    <value>Unvan oluşturulurken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorUpdatingTitle" xml:space="preserve">
+    <value>Unvan güncellenirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeletingTitle" xml:space="preserve">
+    <value>Unvan silinirken bir hata oluştu.</value>
+  </data>
+  
+  <!-- Customer Messages -->
+  <data name="CustomersRetrieved" xml:space="preserve">
+    <value>Müşteriler başarıyla getirildi.</value>
+  </data>
+  <data name="CustomerNotFound" xml:space="preserve">
+    <value>Müşteri bulunamadı.</value>
+  </data>
+  <data name="CustomerRetrieved" xml:space="preserve">
+    <value>Müşteri başarıyla getirildi.</value>
+  </data>
+  <data name="CustomerCreated" xml:space="preserve">
+    <value>Müşteri başarıyla oluşturuldu.</value>
+  </data>
+  <data name="CustomerUpdated" xml:space="preserve">
+    <value>Müşteri başarıyla güncellendi.</value>
+  </data>
+  <data name="CustomerDeleted" xml:space="preserve">
+    <value>Müşteri başarıyla silindi.</value>
+  </data>
+  <data name="ErrorRetrievingCustomers" xml:space="preserve">
+    <value>Müşteriler getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorRetrievingCustomer" xml:space="preserve">
+    <value>Müşteri getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorCreatingCustomer" xml:space="preserve">
+    <value>Müşteri oluşturulurken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorUpdatingCustomer" xml:space="preserve">
+    <value>Müşteri güncellenirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeletingCustomer" xml:space="preserve">
+    <value>Müşteri silinirken bir hata oluştu.</value>
+  </data>
+  
+  <!-- Customer Type Messages -->
+  <data name="CustomerTypesRetrieved" xml:space="preserve">
+    <value>Müşteri türleri başarıyla getirildi.</value>
+  </data>
+  <data name="CustomerTypeNotFound" xml:space="preserve">
+    <value>Müşteri türü bulunamadı.</value>
+  </data>
+  <data name="CustomerTypeRetrieved" xml:space="preserve">
+    <value>Müşteri türü başarıyla getirildi.</value>
+  </data>
+  <data name="CustomerTypeCreated" xml:space="preserve">
+    <value>Müşteri türü başarıyla oluşturuldu.</value>
+  </data>
+  <data name="CustomerTypeUpdated" xml:space="preserve">
+    <value>Müşteri türü başarıyla güncellendi.</value>
+  </data>
+  <data name="CustomerTypeDeleted" xml:space="preserve">
+    <value>Müşteri türü başarıyla silindi.</value>
+  </data>
+  <data name="ErrorRetrievingCustomerTypes" xml:space="preserve">
+    <value>Müşteri türleri getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorRetrievingCustomerType" xml:space="preserve">
+    <value>Müşteri türü getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorCreatingCustomerType" xml:space="preserve">
+    <value>Müşteri türü oluşturulurken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorUpdatingCustomerType" xml:space="preserve">
+    <value>Müşteri türü güncellenirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeletingCustomerType" xml:space="preserve">
+    <value>Müşteri türü silinirken bir hata oluştu.</value>
+  </data>
+  
+  <!-- Contact Messages -->
+  <data name="ContactsRetrieved" xml:space="preserve">
+    <value>İletişim bilgileri başarıyla getirildi.</value>
+  </data>
+  <data name="ContactNotFound" xml:space="preserve">
+    <value>İletişim bilgisi bulunamadı.</value>
+  </data>
+  <data name="ContactRetrieved" xml:space="preserve">
+    <value>İletişim bilgisi başarıyla getirildi.</value>
+  </data>
+  <data name="ContactCreated" xml:space="preserve">
+    <value>İletişim bilgisi başarıyla oluşturuldu.</value>
+  </data>
+  <data name="ContactUpdated" xml:space="preserve">
+    <value>İletişim bilgisi başarıyla güncellendi.</value>
+  </data>
+  <data name="ContactDeleted" xml:space="preserve">
+    <value>İletişim bilgisi başarıyla silindi.</value>
+  </data>
+  <data name="ErrorRetrievingContacts" xml:space="preserve">
+    <value>İletişim bilgileri getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorRetrievingContact" xml:space="preserve">
+    <value>İletişim bilgisi getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorCreatingContact" xml:space="preserve">
+    <value>İletişim bilgisi oluşturulurken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorUpdatingContact" xml:space="preserve">
+    <value>İletişim bilgisi güncellenirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeletingContact" xml:space="preserve">
+    <value>İletişim bilgisi silinirken bir hata oluştu.</value>
+  </data>
+  
+  <!-- Activity Messages -->
+  <data name="ActivitiesRetrieved" xml:space="preserve">
+    <value>Aktiviteler başarıyla getirildi.</value>
+  </data>
+  <data name="ActivityNotFound" xml:space="preserve">
+    <value>Aktivite bulunamadı.</value>
+  </data>
+  <data name="ActivityRetrieved" xml:space="preserve">
+    <value>Aktivite başarıyla getirildi.</value>
+  </data>
+  <data name="ActivityCreated" xml:space="preserve">
+    <value>Aktivite başarıyla oluşturuldu.</value>
+  </data>
+  <data name="ActivityUpdated" xml:space="preserve">
+    <value>Aktivite başarıyla güncellendi.</value>
+  </data>
+  <data name="ActivityDeleted" xml:space="preserve">
+    <value>Aktivite başarıyla silindi.</value>
+  </data>
+  
+  <!-- Product Pricing Messages -->
+  <data name="ProductPricingsRetrieved" xml:space="preserve">
+    <value>Ürün fiyatlandırmaları başarıyla getirildi.</value>
+  </data>
+  <data name="ProductPricingNotFound" xml:space="preserve">
+    <value>Ürün fiyatlandırması bulunamadı.</value>
+  </data>
+  <data name="ProductPricingRetrieved" xml:space="preserve">
+    <value>Ürün fiyatlandırması başarıyla getirildi.</value>
+  </data>
+  <data name="ProductPricingCreated" xml:space="preserve">
+    <value>Ürün fiyatlandırması başarıyla oluşturuldu.</value>
+  </data>
+  <data name="ProductPricingUpdated" xml:space="preserve">
+    <value>Ürün fiyatlandırması başarıyla güncellendi.</value>
+  </data>
+  <data name="ProductPricingDeleted" xml:space="preserve">
+    <value>Ürün fiyatlandırması başarıyla silindi.</value>
+  </data>
+  
+  <!-- Product Pricing Group By Messages -->
+  <data name="ProductPricingGroupBysRetrieved" xml:space="preserve">
+    <value>Ürün fiyatlandırma grupları başarıyla getirildi.</value>
+  </data>
+  <data name="ProductPricingGroupByNotFound" xml:space="preserve">
+    <value>Ürün fiyatlandırma grubu bulunamadı.</value>
+  </data>
+  <data name="ProductPricingGroupByRetrieved" xml:space="preserve">
+    <value>Ürün fiyatlandırma grubu başarıyla getirildi.</value>
+  </data>
+  <data name="ProductPricingGroupByCreated" xml:space="preserve">
+    <value>Ürün fiyatlandırma grubu başarıyla oluşturuldu.</value>
+  </data>
+  <data name="ProductPricingGroupByUpdated" xml:space="preserve">
+    <value>Ürün fiyatlandırma grubu başarıyla güncellendi.</value>
+  </data>
+  <data name="ProductPricingGroupByDeleted" xml:space="preserve">
+    <value>Ürün fiyatlandırma grubu başarıyla silindi.</value>
+  </data>
+  
+  <!-- User Discount Limit Messages -->
+  <data name="UserDiscountLimitsRetrieved" xml:space="preserve">
+    <value>Kullanıcı indirim limitleri başarıyla getirildi.</value>
+  </data>
+  <data name="UserDiscountLimitNotFound" xml:space="preserve">
+    <value>Kullanıcı indirim limiti bulunamadı.</value>
+  </data>
+  <data name="UserDiscountLimitRetrieved" xml:space="preserve">
+    <value>Kullanıcı indirim limiti başarıyla getirildi.</value>
+  </data>
+  <data name="UserDiscountLimitCreated" xml:space="preserve">
+    <value>Kullanıcı indirim limiti başarıyla oluşturuldu.</value>
+  </data>
+  <data name="UserDiscountLimitUpdated" xml:space="preserve">
+    <value>Kullanıcı indirim limiti başarıyla güncellendi.</value>
+  </data>
+  <data name="UserDiscountLimitDeleted" xml:space="preserve">
+    <value>Kullanıcı indirim limiti başarıyla silindi.</value>
+  </data>
+  <data name="UserDiscountLimitExistsChecked" xml:space="preserve">
+    <value>Kullanıcı indirim limiti varlığı başarıyla kontrol edildi.</value>
+  </data>
+  
+  <!-- Additional User Messages -->
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>Kullanıcı zaten mevcut.</value>
+  </data>
+  
+  <!-- ERP Messages -->
+  <data name="CariRecordsRetrieved" xml:space="preserve">
+    <value>Cari kayıtları başarıyla getirildi.</value>
+  </data>
+  <data name="ErrorRetrievingCariRecords" xml:space="preserve">
+    <value>Cari kayıtları getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="DepoRecordsRetrieved" xml:space="preserve">
+    <value>Depo kayıtları başarıyla getirildi.</value>
+  </data>
+  <data name="ErrorRetrievingDepoRecords" xml:space="preserve">
+    <value>Depo kayıtları getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="StokRecordsRetrieved" xml:space="preserve">
+    <value>Stok kayıtları başarıyla getirildi.</value>
+  </data>
+  <data name="ErrorRetrievingStokRecords" xml:space="preserve">
+    <value>Stok kayıtları getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ProjeRecordsRetrieved" xml:space="preserve">
+    <value>Proje kayıtları başarıyla getirildi.</value>
+  </data>
+  <data name="ErrorRetrievingProjeRecords" xml:space="preserve">
+    <value>Proje kayıtları getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="OnHandQuantityRetrieved" xml:space="preserve">
+    <value>Eldeki miktar kayıtları başarıyla getirildi.</value>
+  </data>
+  <data name="ErrorRetrievingOnHandQuantityRecords" xml:space="preserve">
+    <value>Eldeki miktar kayıtları getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErpConnectionSuccessful" xml:space="preserve">
+    <value>ERP bağlantısı başarılı.</value>
+  </data>
+  <data name="ErpConnectionFailed" xml:space="preserve">
+    <value>ERP bağlantısı başarısız.</value>
+  </data>
+  
+  <!-- Payment Type Messages -->
+  <data name="PaymentTypesRetrieved" xml:space="preserve">
+    <value>Ödeme tipleri başarıyla getirildi.</value>
+  </data>
+  <data name="PaymentTypeNotFound" xml:space="preserve">
+    <value>Ödeme tipi bulunamadı.</value>
+  </data>
+  <data name="PaymentTypeRetrieved" xml:space="preserve">
+    <value>Ödeme tipi başarıyla getirildi.</value>
+  </data>
+  <data name="PaymentTypeCreated" xml:space="preserve">
+    <value>Ödeme tipi başarıyla oluşturuldu.</value>
+  </data>
+  <data name="PaymentTypeUpdated" xml:space="preserve">
+    <value>Ödeme tipi başarıyla güncellendi.</value>
+  </data>
+  <data name="PaymentTypeDeleted" xml:space="preserve">
+    <value>Ödeme tipi başarıyla silindi.</value>
+  </data>
+  
+  <!-- Shipping Address Messages -->
+  <data name="ShippingAddressesRetrieved" xml:space="preserve">
+    <value>Sevk adresleri başarıyla getirildi.</value>
+  </data>
+  <data name="ShippingAddressNotFound" xml:space="preserve">
+    <value>Sevk adresi bulunamadı.</value>
+  </data>
+  <data name="ShippingAddressRetrieved" xml:space="preserve">
+    <value>Sevk adresi başarıyla getirildi.</value>
+  </data>
+  <data name="ShippingAddressCreated" xml:space="preserve">
+    <value>Sevk adresi başarıyla oluşturuldu.</value>
+  </data>
+  <data name="ShippingAddressUpdated" xml:space="preserve">
+    <value>Sevk adresi başarıyla güncellendi.</value>
+  </data>
+  <data name="ShippingAddressDeleted" xml:space="preserve">
+    <value>Sevk adresi başarıyla silindi.</value>
+  </data>
+  <data name="ShippingAddressesByCustomerRetrieved" xml:space="preserve">
+    <value>Müşteri sevk adresleri başarıyla getirildi.</value>
+  </data>
+  
+  <!-- Quotation Messages -->
+  <data name="QuotationsRetrieved" xml:space="preserve">
+    <value>Teklifler başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationNotFound" xml:space="preserve">
+    <value>Teklif bulunamadı.</value>
+  </data>
+  <data name="QuotationRetrieved" xml:space="preserve">
+    <value>Teklif başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationCreated" xml:space="preserve">
+    <value>Teklif başarıyla oluşturuldu.</value>
+  </data>
+  <data name="QuotationUpdated" xml:space="preserve">
+    <value>Teklif başarıyla güncellendi.</value>
+  </data>
+  <data name="QuotationDeleted" xml:space="preserve">
+    <value>Teklif başarıyla silindi.</value>
+  </data>
+  <data name="QuotationsByPotentialCustomerRetrieved" xml:space="preserve">
+    <value>Potansiyel müşteri teklifleri başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationsByRepresentativeRetrieved" xml:space="preserve">
+    <value>Temsilci teklifleri başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationsByStatusRetrieved" xml:space="preserve">
+    <value>Durum teklifleri başarıyla getirildi.</value>
+  </data>
+</root>

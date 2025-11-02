@@ -1,0 +1,61 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace cms_webapi.Models
+{
+    [Table("RII_QUOTATION")]
+    public class Quotation : BaseHeaderEntity
+    {
+        [ForeignKey("PotentialCustomer")]
+        public long? PotentialCustomerId { get; set; }
+        public Customer? PotentialCustomer { get; set; } // potansiyel müşteri
+
+        public string? ErpCustomerCode { get; set; } = String.Empty;  // e.g., "CUST001"
+        public DateTime? DeliveryDate { get; set; } // Tahmini teslim tarihi
+
+        public long? ShippingAddressId { get; set; } // Teslimat adresi ID
+        [ForeignKey("ShippingAddressId")]
+        public ShippingAddress? ShippingAddress { get; set; } // Navigation Property (Teslimat adresi bilgisi)
+
+        [ForeignKey("Representative")]
+        public long? RepresentativeId { get; set; } // Satış temsilcisi ID
+        public User? Representative { get; set; } // Satış temsilcisi
+
+        [Column(TypeName = "int")]
+        public int? Status { get; set; } // Genel durum bilgisi (Workflow)
+
+        [MaxLength(500)]
+        [Column(TypeName = "nvarchar(500)")]
+        public string? Description { get; set; } // Genel açıklama
+
+        public long? PaymentTypeId { get; set; } // Ödeme tipi ID
+        [ForeignKey("PaymentTypeId")]
+        public virtual PaymentType? PaymentType { get; set; } // Navigation Property (Ödeme tipi bilgisi)
+
+        [MaxLength(50)]
+        [Column(TypeName = "nvarchar(50)")]
+        public string OfferType { get; set; } = null!; // Teklif tipi Yurtiçi yurtdışı
+
+        public DateTime? OfferDate { get; set; } // Teklif tarihi
+
+        [MaxLength(50)]
+        [Column(TypeName = "nvarchar(50)")]
+        public string? OfferNo { get; set; } // Teklif numarası
+
+        [MaxLength(50)]
+        [Column(TypeName = "nvarchar(50)")]
+        public string? RevisionNo { get; set; } // Revizyon numarası (varsa)
+        
+        public long? RevisionId { get; set; } // Revizyon ID (varsa)
+
+        [MaxLength(50)]
+        [Column(TypeName = "nvarchar(50)")]
+        public string Currency { get; set; } = String.Empty; // Döviz tipi
+
+        [Column(TypeName = "decimal(18,6)")]
+        public double? ExchangeRate { get; set; } // Döviz kuru
+
+
+    }
+}

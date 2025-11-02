@@ -1,0 +1,34 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using cms_webapi.Models;
+
+namespace cms_webapi.Data.Configurations
+{
+    public class CustomerTypeConfiguration : IEntityTypeConfiguration<CustomerType>
+    {
+        public void Configure(EntityTypeBuilder<CustomerType> builder)
+        {
+            // Table name
+            builder.ToTable("RII_CUSTOMER_TYPE");
+
+            // Properties
+            builder.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder.Property(e => e.Description)
+                .HasMaxLength(255)
+                .IsRequired(false);
+
+            // Navigation Properties
+            builder.HasMany(e => e.Customers)
+                .WithOne(c => c.CustomerTypes)
+                .HasForeignKey(c => c.CustomerTypeId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // Indexes
+            builder.HasIndex(e => e.Name)
+                .IsUnique();
+        }
+    }
+}

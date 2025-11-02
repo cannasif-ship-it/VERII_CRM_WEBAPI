@@ -1,0 +1,15 @@
+using depoWebAPI.Models;
+using cms_webapi.DTOs;
+using cms_webapi.Data;
+
+namespace cms_webapi.Interfaces
+{
+    public interface IContactService
+    {
+        Task<ApiResponse<List<ContactDto>>> GetAllContactsAsync();
+        Task<ApiResponse<ContactDto>> GetContactByIdAsync(long id);
+        Task<ApiResponse<ContactDto>> CreateContactAsync(CreateContactDto createContactDto);
+        Task<ApiResponse<ContactDto>> UpdateContactAsync(long id, UpdateContactDto updateContactDto);
+        Task<ApiResponse<object>> DeleteContactAsync(long id);
+    }
+}
