@@ -22,6 +22,7 @@ api.interceptors.request.use((config: AxiosRequestConfig) => {
 });
 
 export class ActivityService implements IActivityService {
+  
   async getAllActivities(): Promise<ApiResponse<ActivityDto[]>> {
     try {
       const response = await api.get<ApiResponse<ActivityDto[]>>('/');

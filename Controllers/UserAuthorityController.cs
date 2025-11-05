@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WMS_WEBAPI.DTOs;
-using WMS_WEBAPI.Interfaces;
+using cms_webapi.DTOs;
+using cms_webapi.Interfaces;
 
-namespace WMS_WEBAPI.Controllers
+namespace cms_webapi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

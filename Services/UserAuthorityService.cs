@@ -1,11 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WMS_WEBAPI.DTOs;
-using WMS_WEBAPI.Interfaces;
-using WMS_WEBAPI.Models;
-using WMS_WEBAPI.UnitOfWork;
+using cms_webapi.DTOs;
+using cms_webapi.Interfaces;
+using cms_webapi.Models;
 
-namespace WMS_WEBAPI.Services
+namespace cms_webapi.Services
 {
     public class UserAuthorityService : IUserAuthorityService
     {
@@ -81,7 +80,7 @@ namespace WMS_WEBAPI.Services
                 }
 
                 _mapper.Map(updateDto, entity);
-                _unitOfWork.UserAuthorities.Update(entity);
+                await _unitOfWork.UserAuthorities.UpdateAsync(entity);
                 await _unitOfWork.SaveChangesAsync();
 
                 var dto = _mapper.Map<UserAuthorityDto>(entity);
@@ -103,7 +102,7 @@ namespace WMS_WEBAPI.Services
                     return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("NotFound"), _localizationService.GetLocalizedString("RecordNotFound"), 404, default);
                 }
 
-                _unitOfWork.UserAuthorities.SoftDelete(id);
+                await _unitOfWork.UserAuthorities.SoftDeleteAsync(id);
                 await _unitOfWork.SaveChangesAsync();
 
                 return ApiResponse<bool>.SuccessResult(true, _localizationService.GetLocalizedString("Deleted"));

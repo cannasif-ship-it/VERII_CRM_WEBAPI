@@ -17,6 +17,7 @@ namespace cms_webapi.Interfaces
         IGenericRepository<CustomerType> CustomerTypes { get; }
         IGenericRepository<Customer> Customers { get; }
         IGenericRepository<Title> Titles { get; }
+        IGenericRepository<UserAuthority> UserAuthorities { get; }
         IGenericRepository<Contact> Contacts { get; }
         IGenericRepository<Activity> Activities { get; }
         IGenericRepository<ProductPricing> ProductPricings { get; }

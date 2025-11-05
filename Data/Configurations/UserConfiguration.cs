@@ -34,9 +34,8 @@ namespace cms_webapi.Data.Configurations
             builder.Property(u => u.PhoneNumber)
                 .HasMaxLength(20);
 
-            builder.Property(u => u.Role)
-                .HasMaxLength(50)
-                .HasDefaultValue("User");
+            // Role is represented via RoleId and RoleNavigation in the User model
+            builder.Property(u => u.RoleId);
 
             builder.Property(u => u.IsActive)
                 .HasDefaultValue(true);
@@ -63,7 +62,7 @@ namespace cms_webapi.Data.Configurations
                     Email = "admin@vericmr.com",
                     Username = "admin",
                     PasswordHash = "$2a$11$8K1p/a0dL2LkqvMA87LzO.Ac5dvdW8aCO7yuiYxYGrI0rXG/a1u3W", // Admin123! hashed
-                    Role = "Admin",
+                    RoleId = 1,
                     IsEmailConfirmed = true,
                     CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                     IsDeleted = false // Admin user should not be deleted

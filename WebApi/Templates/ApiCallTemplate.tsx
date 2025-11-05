@@ -13,7 +13,7 @@ export const ApiCallTemplate: React.FC = () => {
     setError('');
     try {
       const response: ApiResponse<CityGetDto[]> = await CityHelper.getAllCities();
-      if (response.success && response.data) {
+      if (response.success) {
         setCities(response.data);
       } else {
         setError(response.message || 'Beklenmeyen hata');

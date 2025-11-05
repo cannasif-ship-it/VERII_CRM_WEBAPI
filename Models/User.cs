@@ -1,8 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using cms_webapi.Models;
 
-namespace WMS_WEBAPI.Models
+namespace cms_webapi.Models
 {
     [Table("RII_USER")]
     public class User : BaseEntity

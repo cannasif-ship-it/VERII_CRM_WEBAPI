@@ -27,6 +27,7 @@ namespace cms_webapi.Repositories
         private IGenericRepository<CustomerType>? _customerTypes;
         private IGenericRepository<Customer>? _customers;
         private IGenericRepository<Title>? _titles;
+        private IGenericRepository<UserAuthority>? _userAuthorities;
         private IGenericRepository<Contact>? _contacts;
         private IGenericRepository<Activity>? _activities;
         private IGenericRepository<PaymentType>? _paymentTypes;
@@ -53,6 +54,7 @@ namespace cms_webapi.Repositories
         public IGenericRepository<CustomerType> CustomerTypes{get{_customerTypes ??= new GenericRepository<CustomerType>(_context, _httpContextAccessor);return _customerTypes;}} 
         public IGenericRepository<Customer> Customers{get{_customers ??= new GenericRepository<Customer>(_context, _httpContextAccessor);return _customers;}}
         public IGenericRepository<Title> Titles{get{_titles ??= new GenericRepository<Title>(_context, _httpContextAccessor);return _titles;}}
+        public IGenericRepository<UserAuthority> UserAuthorities{get{_userAuthorities ??= new GenericRepository<UserAuthority>(_context, _httpContextAccessor);return _userAuthorities;}}
         public IGenericRepository<Contact> Contacts{get{_contacts ??= new GenericRepository<Contact>(_context, _httpContextAccessor);return _contacts;}}
         public IGenericRepository<Activity> Activities{get{_activities ??= new GenericRepository<Activity>(_context, _httpContextAccessor);return _activities;}}
         public IGenericRepository<PaymentType> PaymentTypes{get{_paymentTypes ??= new GenericRepository<PaymentType>(_context, _httpContextAccessor);return _paymentTypes;}}

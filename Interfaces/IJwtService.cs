@@ -1,7 +1,7 @@
-using WMS_WEBAPI.Models;
-using WMS_WEBAPI.DTOs;
+using cms_webapi.Models;
+using cms_webapi.DTOs;
 
-namespace WMS_WEBAPI.Interfaces
+namespace cms_webapi.Interfaces
 {
     public interface IJwtService
     {
