@@ -1,0 +1,32 @@
+export interface RII_VW_CARI {
+  SUBE_KODU: number;
+  ISLETME_KODU: number;
+  CARI_KOD: string;
+  CARI_TEL?: string;
+  CARI_IL?: string;
+  ULKE_KODU?: string;
+  CARI_ISIM?: string;
+  CARI_TIP?: string;
+  GRUP_KODU?: string;
+  RAPOR_KODU1?: string;
+  RAPOR_KODU2?: string;
+  RAPOR_KODU3?: string;
+  RAPOR_KODU4?: string;
+  RAPOR_KODU5?: string;
+  CARI_ADRES?: string;
+  CARI_ILCE?: string;
+  VERGI_DAIRESI?: string;
+  VERGI_NUMARASI?: string;
+  FAX?: string;
+  POSTAKODU?: string;
+  DETAY_KODU?: number;
+  NAKLIYE_KATSAYISI?: number;
+  RISK_SINIRI?: number;
+  TEMINATI?: number;
+  CARISK?: number;
+  CCRISK?: number;
+  SARISK?: number;
+  SCRISK?: number;
+  CM_BORCT?: number;
+  CM_ALACT?: number;
+}
