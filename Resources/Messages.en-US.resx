@@ -555,4 +555,42 @@
   <data name="QuotationsByStatusRetrieved" xml:space="preserve">
     <value>Quotations by status retrieved successfully.</value>
   </data>
+  
+  <!-- Quotation Line Messages -->
+  <data name="QuotationLinesRetrieved" xml:space="preserve">
+    <value>Quotation lines retrieved successfully.</value>
+  </data>
+  <data name="QuotationLineNotFound" xml:space="preserve">
+    <value>Quotation line not found.</value>
+  </data>
+  <data name="QuotationLineRetrieved" xml:space="preserve">
+    <value>Quotation line retrieved successfully.</value>
+  </data>
+  <data name="QuotationLineCreated" xml:space="preserve">
+    <value>Quotation line created successfully.</value>
+  </data>
+  <data name="QuotationLineUpdated" xml:space="preserve">
+    <value>Quotation line updated successfully.</value>
+  </data>
+  <data name="QuotationLineDeleted" xml:space="preserve">
+    <value>Quotation line deleted successfully.</value>
+  </data>
+  <data name="ErrorRetrievingQuotationLines" xml:space="preserve">
+    <value>An error occurred while retrieving quotation lines.</value>
+  </data>
+  <data name="ErrorRetrievingQuotationLine" xml:space="preserve">
+    <value>An error occurred while retrieving the quotation line.</value>
+  </data>
+  <data name="ErrorCreatingQuotationLine" xml:space="preserve">
+    <value>An error occurred while creating the quotation line.</value>
+  </data>
+  <data name="ErrorUpdatingQuotationLine" xml:space="preserve">
+    <value>An error occurred while updating the quotation line.</value>
+  </data>
+  <data name="ErrorDeletingQuotationLine" xml:space="preserve">
+    <value>An error occurred while deleting the quotation line.</value>
+  </data>
+  <data name="QuotationLinesByQuotationRetrieved" xml:space="preserve">
+    <value>Quotation lines by quotation retrieved successfully.</value>
+  </data>
 </root>

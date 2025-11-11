@@ -3,101 +3,69 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using cms_webapi.Models;
+using cms_webapi.Interfaces;
+using cms_webapi.DTOs;
+using cms_webapi.UnitOfWork;
 
 namespace cms_webapi.Services
 {
-    public interface IJwtTokenService
-    {
-        string GenerateToken(User user);
-        ClaimsPrincipal? ValidateToken(string token);
-        // Added to expose token expiration minutes
-        int GetTokenExpirationMinutes();
-    }
-
-    public class JwtTokenService : IJwtTokenService
+    public class JwtService : IJwtService
     {
         private readonly IConfiguration _configuration;
+        private readonly ILocalizationService _localizationService;
 
-        public JwtTokenService(IConfiguration configuration)
+        public JwtService(IConfiguration configuration, ILocalizationService localizationService)
         {
             _configuration = configuration;
+            _localizationService = localizationService;
         }
 
-        public string GenerateToken(User user)
-        {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
-            var secretKey = jwtSettings["SecretKey"];
-            var issuer = jwtSettings["Issuer"];
-            var audience = jwtSettings["Audience"];
-            var expiryMinutes = int.Parse(jwtSettings["ExpiryMinutes"] ?? "60");
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.RoleNavigation?.Title ?? string.Empty),
-                new Claim("FirstName", user.FirstName ?? string.Empty),
-                new Claim("LastName", user.LastName ?? string.Empty)
-            };
-
-            var token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: audience,
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(expiryMinutes),
-                signingCredentials: credentials
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public ClaimsPrincipal? ValidateToken(string token)
+        public ApiResponse<string> GenerateToken(User user)
         {
             try
             {
-                var jwtSettings = _configuration.GetSection("JwtSettings");
-                var secretKey = jwtSettings["SecretKey"];
-                var issuer = jwtSettings["Issuer"];
-                var audience = jwtSettings["Audience"];
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var validationParameters = new TokenValidationParameters
+                var claims = new[]
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = key,
-                    ValidateIssuer = true,
-                    ValidIssuer = issuer,
-                    ValidateAudience = true,
-                    ValidAudience = audience,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim("firstName", user.FirstName ?? ""),
+                    new Claim("lastName", user.LastName ?? ""),
+                    new Claim(ClaimTypes.Role, user.RoleNavigation?.Title ?? "User")
                 };
 
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-                return principal;
-            }
-            catch
-            {
-                return null;
-            }
-        }
+                // Read settings from "JwtSettings" to align with Program.cs and appsettings.json
+                var jwtSettings = _configuration.GetSection("JwtSettings");
+                var secret = jwtSettings["SecretKey"];
+                var issuer = jwtSettings["Issuer"];
+                var audience = jwtSettings["Audience"];
+                var expiryMinutesStr = jwtSettings["ExpiryMinutes"] ?? "60";
 
-        // Added implementation to expose expiration minutes to consumers
-        public int GetTokenExpirationMinutes()
-        {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
-            var minutesValue = jwtSettings["ExpiryMinutes"];
-            if (int.TryParse(minutesValue, out var minutes))
-            {
-                return minutes;
+                if (string.IsNullOrWhiteSpace(secret))
+                {
+                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("TokenGenerationError"), "Missing JwtSettings:SecretKey", 500, "Token generation failed");
+                }
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+                var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(expiryMinutesStr));
+
+                var token = new JwtSecurityToken(
+                    issuer: issuer,
+                    audience: audience,
+                    claims: claims,
+                    expires: expires,
+                    signingCredentials: credentials
+                );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+                return ApiResponse<string>.SuccessResult(tokenString, _localizationService.GetLocalizedString("TokenGeneratedSuccessfully"));
             }
-            return 60;
+            catch (Exception ex)
+            {
+                return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("TokenGenerationError"), ex.Message, 500, _localizationService.GetLocalizedString("TokenGenerationFailedMessage"));
+            }
         }
     }
 }

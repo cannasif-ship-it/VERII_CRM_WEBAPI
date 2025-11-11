@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using cms_webapi.Interfaces;
 using cms_webapi.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cms_webapi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ErpController : ControllerBase
     {
         private readonly IErpService _IErpService;

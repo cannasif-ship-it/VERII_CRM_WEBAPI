@@ -4,9 +4,9 @@ using cms_webapi.Models;
 
 namespace cms_webapi.Data.Configurations
 {
-    public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+    public class CustomerConfiguration : BaseEntityConfiguration<Customer>
     {
-        public void Configure(EntityTypeBuilder<Customer> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<Customer> builder)
         {
             // Table name
             builder.ToTable("RII_CUSTOMER");
@@ -43,7 +43,7 @@ namespace cms_webapi.Data.Configurations
 
             // Financial Information
             builder.Property(e => e.CreditLimit)
-                .HasColumnType("decimal(18,2)")
+                .HasColumnType("decimal(18,6)")
                 .IsRequired(false);
 
             // ERP Integration
@@ -55,27 +55,27 @@ namespace cms_webapi.Data.Configurations
 
             // Contact Information
             builder.Property(e => e.Notes)
-                .HasMaxLength(1000)
+                .HasMaxLength(250)
                 .IsRequired(false);
 
             builder.Property(e => e.Email)
-                .HasMaxLength(200)
+                .HasMaxLength(100)
                 .IsRequired(false);
 
             builder.Property(e => e.Website)
-                .HasMaxLength(200)
+                .HasMaxLength(100)
                 .IsRequired(false);
 
             builder.Property(e => e.Phone1)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsRequired(false);
 
             builder.Property(e => e.Phone2)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsRequired(false);
 
             builder.Property(e => e.Address)
-                .HasMaxLength(500)
+                .HasMaxLength(100)
                 .IsRequired(false);
 
             // Location Information
@@ -119,6 +119,57 @@ namespace cms_webapi.Data.Configurations
 
             builder.HasIndex(e => e.Email)
                 .HasFilter("[Email] IS NOT NULL");
+
+            // BaseHeaderEntity fields (approval & ERP integration)
+            builder.Property(e => e.CompletionDate)
+                .HasColumnName("COMPLETION_DATE");
+
+            builder.Property(e => e.IsCompleted)
+                .HasColumnName("IS_COMPLETED")
+                .HasDefaultValue(false);
+
+            builder.Property(e => e.IsPendingApproval)
+                .HasColumnName("IS_PENDING_APPROVAL")
+                .HasDefaultValue(false);
+
+            builder.Property(e => e.ApprovalStatus)
+                .HasColumnName("APPROVAL_STATUS");
+
+            builder.Property(e => e.RejectedReason)
+                .HasColumnName("REJECTED_REASON")
+                .HasMaxLength(250);
+
+            builder.Property(e => e.ApprovedByUserId)
+                .HasColumnName("APPROVED_BY_USER_ID");
+
+            builder.HasOne(e => e.ApprovedByUser)
+                .WithMany()
+                .HasForeignKey(e => e.ApprovedByUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(e => e.ApprovalDate)
+                .HasColumnName("APPROVAL_DATE");
+
+            builder.Property(e => e.IsERPIntegrated)
+                .HasColumnName("IS_ERP_INTEGRATED")
+                .HasDefaultValue(false);
+
+            builder.Property(e => e.ERPIntegrationNumber)
+                .HasColumnName("ERP_INTEGRATION_NUMBER")
+                .HasMaxLength(100);
+
+            builder.Property(e => e.LastSyncDate)
+                .HasColumnName("LAST_SYNC_DATE");
+
+            builder.Property(e => e.CountTriedBy)
+                .HasColumnName("COUNT_TRIED_BY")
+                .HasDefaultValue(0);
+
+            // Helpful indexes for workflow fields
+            builder.HasIndex(e => e.ApprovedByUserId);
+            builder.HasIndex(e => e.ApprovalStatus);
+            builder.HasIndex(e => e.ApprovalDate);
+            builder.HasIndex(e => e.IsCompleted);
         }
     }
 }

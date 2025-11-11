@@ -9,12 +9,9 @@ namespace cms_webapi.Data.Configurations
         public void Configure(EntityTypeBuilder<Quotation> builder)
         {
             builder.ToTable("RII_QUOTATION");
-
-            builder.HasKey(e => e.Id);
-
+            // Key is defined via BaseEntity annotations; map column name
             builder.Property(e => e.Id)
-                .HasColumnName("ID")
-                .ValueGeneratedOnAdd();
+                .HasColumnName("ID");
 
             builder.Property(e => e.PotentialCustomerId)
                 .HasColumnName("POTENTIAL_CUSTOMER_ID");
@@ -77,16 +74,58 @@ namespace cms_webapi.Data.Configurations
                 .HasColumnName("UPDATED_DATE");
 
             builder.Property(e => e.CreatedBy)
-                .HasColumnName("CREATED_BY")
-                .HasMaxLength(50);
+                .HasColumnName("CREATED_BY");
 
             builder.Property(e => e.UpdatedBy)
-                .HasColumnName("UPDATED_BY")
-                .HasMaxLength(50);
+                .HasColumnName("UPDATED_BY");
 
             builder.Property(e => e.DeletedBy)
-                .HasColumnName("DELETED_BY")
-                .HasMaxLength(50);
+                .HasColumnName("DELETED_BY");
+
+            // BaseHeaderEntity fields (approval & ERP integration)
+            builder.Property(e => e.CompletionDate)
+                .HasColumnName("COMPLETION_DATE");
+
+            builder.Property(e => e.IsCompleted)
+                .HasColumnName("IS_COMPLETED")
+                .HasDefaultValue(false);
+
+            builder.Property(e => e.IsPendingApproval)
+                .HasColumnName("IS_PENDING_APPROVAL")
+                .HasDefaultValue(false);
+
+            builder.Property(e => e.ApprovalStatus)
+                .HasColumnName("APPROVAL_STATUS");
+
+            builder.Property(e => e.RejectedReason)
+                .HasColumnName("REJECTED_REASON")
+                .HasMaxLength(250);
+
+            builder.Property(e => e.ApprovedByUserId)
+                .HasColumnName("APPROVED_BY_USER_ID");
+
+            builder.HasOne(e => e.ApprovedByUser)
+                .WithMany()
+                .HasForeignKey(e => e.ApprovedByUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(e => e.ApprovalDate)
+                .HasColumnName("APPROVAL_DATE");
+
+            builder.Property(e => e.IsERPIntegrated)
+                .HasColumnName("IS_ERP_INTEGRATED")
+                .HasDefaultValue(false);
+
+            builder.Property(e => e.ERPIntegrationNumber)
+                .HasColumnName("ERP_INTEGRATION_NUMBER")
+                .HasMaxLength(100);
+
+            builder.Property(e => e.LastSyncDate)
+                .HasColumnName("LAST_SYNC_DATE");
+
+            builder.Property(e => e.CountTriedBy)
+                .HasColumnName("COUNT_TRIED_BY")
+                .HasDefaultValue(0);
 
             // Foreign Key Relationships
             builder.HasOne(e => e.PotentialCustomer)
@@ -120,6 +159,11 @@ namespace cms_webapi.Data.Configurations
             builder.HasIndex(e => e.CreatedBy);
             builder.HasIndex(e => e.UpdatedBy);
             builder.HasIndex(e => e.DeletedBy);
+
+            builder.HasIndex(e => e.ApprovedByUserId);
+            builder.HasIndex(e => e.ApprovalStatus);
+            builder.HasIndex(e => e.ApprovalDate);
+            builder.HasIndex(e => e.IsCompleted);
         }
     }
 }

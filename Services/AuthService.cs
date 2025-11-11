@@ -1,148 +1,126 @@
-using AutoMapper;
-using BCrypt.Net;
+using Microsoft.EntityFrameworkCore;
+using cms_webapi.Data;
 using cms_webapi.DTOs;
-using cms_webapi.Interfaces;
 using cms_webapi.Models;
+using cms_webapi.Interfaces;
+using cms_webapi.UnitOfWork;
 
 namespace cms_webapi.Services
 {
-    /// <summary>
-    /// Authentication service implementation
-    /// </summary>
     public class AuthService : IAuthService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IJwtTokenService _jwtTokenService;
-        private readonly IMapper _mapper;
+        private readonly IJwtService _jwtService;
         private readonly ILocalizationService _localizationService;
 
-        public AuthService(
-            IUnitOfWork unitOfWork,
-            IJwtTokenService jwtTokenService,
-            IMapper mapper,
-            ILocalizationService localizationService)
+        public AuthService(IUnitOfWork unitOfWork, IJwtService jwtService, ILocalizationService localizationService)
         {
             _unitOfWork = unitOfWork;
-            _jwtTokenService = jwtTokenService;
-            _mapper = mapper;
+            _jwtService = jwtService;
             _localizationService = localizationService;
         }
 
-        /// <summary>
-        /// Authenticate user with username/email and password
-        /// </summary>
-        /// <param name="loginDto">Login credentials</param>
-        /// <returns>Login response with token and user info</returns>
-        public async Task<ApiResponse<LoginResponseDto>> LoginAsync(LoginDto loginDto)
+        public async Task<ApiResponse<User>> GetUserByUsernameAsync(string username)
         {
             try
             {
-                // Validate user credentials
-                var user = await ValidateUserAsync(loginDto.UsernameOrEmail, loginDto.Password);
+                var users = await _unitOfWork.Users.GetAllAsync();
+                var user = users.FirstOrDefault(u => u.Username == username);
+                
                 if (user == null)
                 {
-                    return ApiResponse<LoginResponseDto>.ErrorResult(_localizationService.GetLocalizedString("InvalidCredentials"), "Invalid credentials", StatusCodes.Status401Unauthorized);
+                    return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserNotFound"), "User not found", 404, default);
                 }
 
-                // Check if user is active
-                if (user.IsDeleted)
-                {
-                    return ApiResponse<LoginResponseDto>.ErrorResult(_localizationService.GetLocalizedString("AccountInactive"), "Account is inactive", StatusCodes.Status403Forbidden);
-                }
-
-                // Generate JWT token
-                var token = _jwtTokenService.GenerateToken(user);
-                var expiresAt = DateTime.UtcNow.AddMinutes(_jwtTokenService.GetTokenExpirationMinutes());
-
-                var userDto = _mapper.Map<UserDto>(user);
-                var response = new LoginResponseDto
-                {
-                    Token = token,
-                    ExpiresAt = expiresAt,
-                    User = userDto
-                };
-
-                return ApiResponse<LoginResponseDto>.SuccessResult(response, _localizationService.GetLocalizedString("LoginSuccessful"));
+                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("OperationSuccessful"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<LoginResponseDto>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, 500, ex.Message);
             }
         }
 
-        /// <summary>
-        /// Register a new user
-        /// </summary>
-        /// <param name="createUserDto">User registration data</param>
-        /// <returns>Created user information</returns>
-        public async Task<ApiResponse<UserDto>> RegisterAsync(CreateUserDto createUserDto)
+        public async Task<ApiResponse<User>> GetUserByIdAsync(int id)
         {
             try
             {
-                // Check if email already exists
-                if (await EmailExistsAsync(createUserDto.Email))
+                var user = await _unitOfWork.Users.GetByIdAsync(id);
+                
+                if (user == null)
                 {
-                    return ApiResponse<UserDto>.ErrorResult(_localizationService.GetLocalizedString("EmailAlreadyExists"), "Email already exists", StatusCodes.Status409Conflict);
+                    return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserNotFound"), "User not found", 404, default);
+                }
+
+                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("OperationSuccessful"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, 500, ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse<User>> RegisterUserAsync(RegisterDto registerDto)
+        {
+            try
+            {
+                // Check if user already exists
+                var existingUserResponse = await GetUserByUsernameAsync(registerDto.Username);
+                if (existingUserResponse.Success)
+                {
+                    return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("UserAlreadyExists"), "User already exists", 400, default);
                 }
 
                 // Create new user
-                var user = _mapper.Map<User>(createUserDto);
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(createUserDto.Password);
+                var user = new User
+                {
+                    Username = registerDto.Username,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password),
+                    Email = registerDto.Email,
+                    FirstName = registerDto.FirstName,
+                    LastName = registerDto.LastName
+                };
 
-                var createdUser = await _unitOfWork.Users.AddAsync(user);
+                await _unitOfWork.Users.AddAsync(user);
                 await _unitOfWork.SaveChangesAsync();
-                var userDto = _mapper.Map<UserDto>(createdUser);
 
-                return ApiResponse<UserDto>.SuccessResult(userDto, _localizationService.GetLocalizedString("UserRegistered"));
+                return ApiResponse<User>.SuccessResult(user, _localizationService.GetLocalizedString("UserRegisteredSuccessfully"));
             }
             catch (Exception ex)
             {
-                return ApiResponse<UserDto>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+                return ApiResponse<User>.ErrorResult(_localizationService.GetLocalizedString("RegistrationFailed"), ex.Message, 500, "Registration failed");
             }
         }
 
-        /// <summary>
-        /// Validate user credentials
-        /// </summary>
-        /// <param name="usernameOrEmail">Username or email</param>
-        /// <param name="password">Password</param>
-        /// <returns>User if valid, null if invalid</returns>
-        public async Task<User?> ValidateUserAsync(string usernameOrEmail, string password)
+        public async Task<ApiResponse<string>> LoginAsync(LoginDto loginDto)
         {
-            // Find user by email or username
-            var user = await _unitOfWork.Users.FirstOrDefaultAsync(u => 
-                u.Email == usernameOrEmail || u.Username == usernameOrEmail);
+            try
+            {
+                // Email veya username ile kullanıcı arama
+                var users = await _unitOfWork.Users.GetAllAsync();
+                var user = users.FirstOrDefault(u => u.Username == loginDto.Username || u.Email == loginDto.Username);
+                
+                if (user == null)
+                {
+                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.InvalidCredentials"), "Invalid credentials", 401, default);
+                }
+                
+                if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
+                {
+                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.InvalidCredentials"), "Invalid credentials", 401, default);
+                }
 
-            if (user == null)
-                return null;
-
-            // Verify password
-            if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
-                return null;
-
-            return user;
-        }
-
-        /// <summary>
-        /// Check if email already exists
-        /// </summary>
-        /// <param name="email">Email to check</param>
-        /// <returns>True if exists, false otherwise</returns>
-        public async Task<bool> EmailExistsAsync(string email)
-        {
-            var user = await _unitOfWork.Users.FirstOrDefaultAsync(u => u.Email == email);
-            return user != null;
-        }
-
-        /// <summary>
-        /// Check if username already exists
-        /// </summary>
-        /// <param name="username">Username to check</param>
-        /// <returns>True if exists, false otherwise</returns>
-        public async Task<bool> UsernameExistsAsync(string username)
-        {
-            var user = await _unitOfWork.Users.FirstOrDefaultAsync(u => u.Username == username);
-            return user != null;
+                var tokenResponse = _jwtService.GenerateToken(user);
+                if (!tokenResponse.Success)
+                {
+                    return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.LoginFailed"), tokenResponse.Message, 500, "Token generation failed");
+                }
+                
+                return ApiResponse<string>.SuccessResult(tokenResponse.Data!, _localizationService.GetLocalizedString("Success.User.LoginSuccessful"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<string>.ErrorResult(_localizationService.GetLocalizedString("Error.User.LoginFailed"), ex.Message, 500, ex.Message);
+            }
         }
     }
 }

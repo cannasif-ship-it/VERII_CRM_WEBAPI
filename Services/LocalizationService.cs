@@ -3,6 +3,7 @@ using cms_webapi.Interfaces;
 using System.Globalization;
 using System.Resources;
 using System.Reflection;
+using cms_webapi.UnitOfWork;
 
 namespace cms_webapi.Services
 {

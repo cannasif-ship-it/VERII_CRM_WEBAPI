@@ -5,7 +5,7 @@ using cms_webapi.Models;
 
 namespace cms_webapi.Models
 {
-    [Table("RII_USER")]
+    [Table("RII_USERS")]
     public class User : BaseEntity
     {
         [Required]

@@ -2,14 +2,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Linq;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
+using System.Security.Claims;
 using cms_webapi.Data;
 using cms_webapi.Interfaces;
 using cms_webapi.Repositories;
 using cms_webapi.Mappings;
 using cms_webapi.Services;
+using cms_webapi.Hubs;
+using cms_webapi.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +22,12 @@ builder.Services.AddControllers();
 
 // Add HttpContextAccessor for auditing in repositories
 builder.Services.AddHttpContextAccessor();
+
+// SignalR Configuration
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+});
 
 // Configure Entity Framework
 builder.Services.AddDbContext<CmsDbContext>(options =>
@@ -34,15 +44,15 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// Register JWT Token Service
-builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+// Register JWT Service
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 // Register Localization Service
 builder.Services.AddScoped<ILocalizationService, LocalizationService>();
 
 // Register Business Services
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserService, UserService>();
+// Removed invalid UserService registration (no IUserService/UserService implementation)
 builder.Services.AddScoped<IErpService, ErpService>();
 builder.Services.AddScoped<ITitleService, TitleService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
@@ -58,6 +68,8 @@ builder.Services.AddScoped<IUserDiscountLimitService, UserDiscountLimitService>(
 builder.Services.AddScoped<IPaymentTypeService, PaymentTypeService>();
 builder.Services.AddScoped<IShippingAddressService, ShippingAddressService>();
 builder.Services.AddScoped<IQuotationService, QuotationService>();
+builder.Services.AddScoped<IQuotationLineService, QuotationLineService>();
+builder.Services.AddScoped<IUserAuthorityService, UserAuthorityService>();
 
 // Configure Localization
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -101,6 +113,68 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings["Audience"] ?? "CmsWebApiUsers",
         ValidateLifetime = true,
         ClockSkew = TimeSpan.Zero
+    };
+
+    // JWT Events for SignalR and session validation
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            // Support tokens sent via query for SignalR
+            var accessToken = context.Request.Query["access_token"]; 
+            var path = context.HttpContext.Request.Path;
+
+            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/api/authHub"))
+            {
+                context.Token = accessToken;
+                return Task.CompletedTask;
+            }
+
+            // Accept tokens without "Bearer " prefix and from alternative header
+            var authorization = context.Request.Headers["Authorization"].FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(authorization))
+            {
+                const string bearerPrefix = "Bearer ";
+                if (authorization.StartsWith(bearerPrefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    context.Token = authorization.Substring(bearerPrefix.Length).Trim();
+                }
+                else if (authorization.Count(c => c == '.') == 2)
+                {
+                    context.Token = authorization.Trim();
+                }
+            }
+            else
+            {
+                var altToken = context.Request.Headers["x-access-token"].FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(altToken))
+                {
+                    context.Token = altToken.Trim();
+                }
+            }
+
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = async context =>
+        {
+            // Ensure user has an active session
+            var db = context.HttpContext.RequestServices.GetRequiredService<CmsDbContext>();
+            var userId = context.Principal?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                context.Fail("Token geçersiz: eksik kullanıcı ID");
+                return;
+            }
+
+            var session = await db.Set<cms_webapi.Models.UserSession>()
+                .FirstOrDefaultAsync(s => s.UserId.ToString() == userId && s.RevokedAt == null);
+
+            if (session == null)
+            {
+                context.Fail("Token geçersiz veya oturum kapandı");
+            }
+        }
     };
 });
 
@@ -184,6 +258,14 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
+    // CORS policy for SignalR with credentials
+    options.AddPolicy("SignalRCorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000", "https://localhost:3000")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
 });
 
 var app = builder.Build();
@@ -210,6 +292,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Map SignalR hub (align with frontend base URL: /api)
+app.MapHub<AuthHub>("/api/authHub").RequireCors("SignalRCorsPolicy");
 
 // Ensure database is created and seeded
 using (var scope = app.Services.CreateScope())

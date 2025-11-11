@@ -8,12 +8,10 @@ namespace cms_webapi.Data.Configurations
     {
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
-            // Primary key
-            builder.HasKey(e => e.Id);
+            // Primary key is defined via data annotations on BaseEntity.Id
+            // Avoid configuring keys on derived types to prevent inheritance key conflicts.
 
             // Base properties configuration
-            builder.Property(e => e.Id)
-                .ValueGeneratedOnAdd();
 
             builder.Property(e => e.CreatedDate)
                 .IsRequired()
@@ -29,14 +27,7 @@ namespace cms_webapi.Data.Configurations
                 .IsRequired()
                 .HasDefaultValue(false);
 
-            builder.Property(e => e.CreatedBy)
-                .HasMaxLength(100);
-
-            builder.Property(e => e.UpdatedBy)
-                .HasMaxLength(100);
-
-            builder.Property(e => e.DeletedBy)
-                .HasMaxLength(100);
+            // Audit fields are nullable long FKs; no MaxLength configuration
 
             // Foreign key relationships with NoAction to prevent cascade cycles
             builder.HasOne(e => e.CreatedByUser)
@@ -54,8 +45,7 @@ namespace cms_webapi.Data.Configurations
                 .HasForeignKey(e => e.DeletedBy)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Global query filter for soft delete
-            builder.HasQueryFilter(e => !e.IsDeleted);
+            // Global query filter for soft delete is applied on root entity types (e.g., BaseHeaderEntity)
 
             // Configure specific entity
             ConfigureEntity(builder);

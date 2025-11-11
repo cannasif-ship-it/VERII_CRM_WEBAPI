@@ -555,4 +555,42 @@
   <data name="QuotationsByStatusRetrieved" xml:space="preserve">
     <value>Durum teklifleri başarıyla getirildi.</value>
   </data>
+  
+  <!-- Quotation Line Messages -->
+  <data name="QuotationLinesRetrieved" xml:space="preserve">
+    <value>Teklif satırları başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationLineNotFound" xml:space="preserve">
+    <value>Teklif satırı bulunamadı.</value>
+  </data>
+  <data name="QuotationLineRetrieved" xml:space="preserve">
+    <value>Teklif satırı başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationLineCreated" xml:space="preserve">
+    <value>Teklif satırı başarıyla oluşturuldu.</value>
+  </data>
+  <data name="QuotationLineUpdated" xml:space="preserve">
+    <value>Teklif satırı başarıyla güncellendi.</value>
+  </data>
+  <data name="QuotationLineDeleted" xml:space="preserve">
+    <value>Teklif satırı başarıyla silindi.</value>
+  </data>
+  <data name="ErrorRetrievingQuotationLines" xml:space="preserve">
+    <value>Teklif satırları getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorRetrievingQuotationLine" xml:space="preserve">
+    <value>Teklif satırı getirilirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorCreatingQuotationLine" xml:space="preserve">
+    <value>Teklif satırı oluşturulurken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorUpdatingQuotationLine" xml:space="preserve">
+    <value>Teklif satırı güncellenirken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeletingQuotationLine" xml:space="preserve">
+    <value>Teklif satırı silinirken bir hata oluştu.</value>
+  </data>
+  <data name="QuotationLinesByQuotationRetrieved" xml:space="preserve">
+    <value>Teklife göre teklif satırları başarıyla getirildi.</value>
+  </data>
 </root>

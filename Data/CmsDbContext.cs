@@ -25,6 +25,9 @@ namespace cms_webapi.Data
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<ShippingAddress> ShippingAddresses { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
+        public DbSet<QuotationLine> QuotationLines { get; set; }
+        public DbSet<UserAuthority> UserAuthorities { get; set; }
+        public DbSet<UserSession> UserSessions { get; set; }
 
 
 

@@ -41,6 +41,10 @@ namespace cms_webapi.Data.Configurations
                 .HasMaxLength(50)
                 .IsRequired();
 
+            builder.Property(e => e.Currency)
+                .HasMaxLength(50)
+                .IsRequired();
+
             builder.Property(e => e.ListPrice)
                 .HasColumnType("decimal(18,6)")
                 .IsRequired();

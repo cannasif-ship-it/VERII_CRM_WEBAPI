@@ -1,11 +1,13 @@
 using cms_webapi.DTOs;
 using cms_webapi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cms_webapi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CustomerTypeController : ControllerBase
     {
         private readonly ICustomerTypeService _customerTypeService;

@@ -9,27 +9,28 @@ namespace cms_webapi.Data.Configurations
         protected override void ConfigureEntity(EntityTypeBuilder<User> builder)
         {
             // Table name
-            builder.ToTable("Users");
+            builder.ToTable("RII_USERS");
 
             // Properties configuration
             builder.Property(u => u.FirstName)
-                .IsRequired()
-                .HasMaxLength(100);
+                .IsRequired(false)
+                .HasMaxLength(50);
 
             builder.Property(u => u.LastName)
-                .IsRequired()
-                .HasMaxLength(100);
+                .IsRequired(false)
+                .HasMaxLength(50);
 
             builder.Property(u => u.Email)
                 .IsRequired()
-                .HasMaxLength(255);
+                .HasMaxLength(100);
 
             builder.Property(u => u.Username)
                 .IsRequired()
                 .HasMaxLength(50);
 
             builder.Property(u => u.PasswordHash)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(255);
 
             builder.Property(u => u.PhoneNumber)
                 .HasMaxLength(20);
@@ -43,6 +44,12 @@ namespace cms_webapi.Data.Configurations
             builder.Property(u => u.IsEmailConfirmed)
                 .HasDefaultValue(false);
 
+            // Relationships
+            builder.HasOne(u => u.RoleNavigation)
+                .WithMany()
+                .HasForeignKey(u => u.RoleId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             // Indexes
             builder.HasIndex(u => u.Email)
                 .IsUnique()
@@ -52,22 +59,26 @@ namespace cms_webapi.Data.Configurations
                 .IsUnique()
                 .HasDatabaseName("IX_Users_Username");
 
-            // Seed data
-            builder.HasData(
-                new User
-                {
-                    Id = 1,
-                    FirstName = "Admin",
-                    LastName = "User",
-                    Email = "admin@vericmr.com",
-                    Username = "admin",
-                    PasswordHash = "$2a$11$8K1p/a0dL2LkqvMA87LzO.Ac5dvdW8aCO7yuiYxYGrI0rXG/a1u3W", // Admin123! hashed
-                    RoleId = 1,
-                    IsEmailConfirmed = true,
-                    CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                    IsDeleted = false // Admin user should not be deleted
-                }
-            );
+            // Deterministic admin seed for first system access
+            // Note: CreatedDate will use DB default (GETUTCDATE()) to reflect current UTC time at insert.
+            builder.HasData(new User
+            {
+                Id = 1,
+                Username = "admin@v3rii.com",
+                Email = "admin@verii.com",
+                // Deterministic bcrypt hash using fixed salt so migrations remain stable
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(
+                    "Veriipass123!",
+                    "$2a$11$abcdefghijklmnopqrstuv"
+                ),
+                FirstName = "Admin",
+                LastName = "User",
+                RoleId = 3, // Admin role
+                IsEmailConfirmed = true,
+                IsActive = true,
+                CreatedDate = new DateTime(2024, 01, 01, 0, 0, 0, DateTimeKind.Utc),
+                IsDeleted = false
+            });
         }
     }
 }

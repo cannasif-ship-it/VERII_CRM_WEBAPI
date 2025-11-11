@@ -15,7 +15,10 @@ namespace cms_webapi.Models
         // Approval Fields (ERP specific)
         public bool IsPendingApproval { get; set; } = false; // Onaya gönderilecek mi? default false
         public bool? ApprovalStatus { get; set; } // Onay durumu (true = Approved, false = Rejected, null = Pending)
-        public int? ApprovedByUserId { get; set; } // Onaylayan kullanıcı ID
+        public string? RejectedReason { get; set; } // Rejected durumunda neden verilmişse
+        public long? ApprovedByUserId { get; set; } // Onaylayan kullanıcı ID
+        public User? ApprovedByUser { get; set; } // Onaylayan kullanıcı
+
         public DateTime? ApprovalDate { get; set; } // Onay tarihi
         public bool IsERPIntegrated { get; set; } = false;
         public string? ERPIntegrationNumber { get; set; } // ERP kayıt referansı

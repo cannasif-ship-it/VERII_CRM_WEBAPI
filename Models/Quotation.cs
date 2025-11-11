@@ -12,15 +12,27 @@ namespace cms_webapi.Models
         public Customer? PotentialCustomer { get; set; } // potansiyel müşteri
 
         public string? ErpCustomerCode { get; set; } = String.Empty;  // e.g., "CUST001"
+
+        [ForeignKey("Contact")]
+        public long? ContactId { get; set; } // müşteri temsilcisi ID
+        public Contact? Contact { get; set; } // müşteri temsilcisi
+
+        public DateTime? ValidUntil { get; set; } // Teklif geçerlilik tarihi
+        
         public DateTime? DeliveryDate { get; set; } // Tahmini teslim tarihi
 
         public long? ShippingAddressId { get; set; } // Teslimat adresi ID
+
         [ForeignKey("ShippingAddressId")]
         public ShippingAddress? ShippingAddress { get; set; } // Navigation Property (Teslimat adresi bilgisi)
 
         [ForeignKey("Representative")]
         public long? RepresentativeId { get; set; } // Satış temsilcisi ID
         public User? Representative { get; set; } // Satış temsilcisi
+
+        [ForeignKey("Activity")]
+        public long? ActivityId { get; set; } // Bağlı olduğu activite
+        public Activity? Activity { get; set; } // Bağlı olduğu activite
 
         [Column(TypeName = "int")]
         public int? Status { get; set; } // Genel durum bilgisi (Workflow)
@@ -53,9 +65,11 @@ namespace cms_webapi.Models
         [Column(TypeName = "nvarchar(50)")]
         public string Currency { get; set; } = String.Empty; // Döviz tipi
 
-        [Column(TypeName = "decimal(18,6)")]
+       [Column(TypeName = "decimal(18,6)")]
         public double? ExchangeRate { get; set; } // Döviz kuru
 
+       [Column(TypeName = "bit")]
+      public bool HasCustomerSpecificDiscount { get; set; } = false; // Müşteri özelindekiler için indirim var mı?
 
     }
 }

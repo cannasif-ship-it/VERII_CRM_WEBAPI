@@ -105,7 +105,7 @@ namespace cms_webapi.Data.Configurations
                 .HasDatabaseName("IX_ShippingAddress_DistrictId");
 
             // Query filter for soft deletion
-            builder.HasQueryFilter(e => !e.DeletedDate.HasValue);
+            builder.HasQueryFilter(e => !e.IsDeleted);
         }
     }
 }

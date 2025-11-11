@@ -17,9 +17,9 @@ namespace cms_webapi.Mappings
 
             CreateMap<ShippingAddress, ShippingAddressGetDto>()
                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.CustomerName))
-                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Countries.Name))
-                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Cities.Name))
-                .ForMember(dest => dest.DistrictName, opt => opt.MapFrom(src => src.Districts.Name))
+                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Countries.Name ?? string.Empty))
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Cities.Name ?? string.Empty))
+                .ForMember(dest => dest.DistrictName, opt => opt.MapFrom(src => src.Districts.Name ?? string.Empty))
                 .ForMember(dest => dest.CreatedByFullUser, opt => opt.MapFrom(src => src.CreatedByUser != null ? $"{src.CreatedByUser.FirstName} {src.CreatedByUser.LastName}".Trim() : null))
                 .ForMember(dest => dest.UpdatedByFullUser, opt => opt.MapFrom(src => src.UpdatedByUser != null ? $"{src.UpdatedByUser.FirstName} {src.UpdatedByUser.LastName}".Trim() : null))
                 .ForMember(dest => dest.DeletedByFullUser, opt => opt.MapFrom(src => src.DeletedByUser != null ? $"{src.DeletedByUser.FirstName} {src.DeletedByUser.LastName}".Trim() : null));

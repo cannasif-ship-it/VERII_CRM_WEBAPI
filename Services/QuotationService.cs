@@ -2,7 +2,9 @@ using AutoMapper;
 using cms_webapi.DTOs;
 using cms_webapi.Models;
 using cms_webapi.Interfaces;
+using cms_webapi.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace cms_webapi.Services
 {
@@ -19,85 +21,157 @@ namespace cms_webapi.Services
             _localizationService = localizationService;
         }
 
-        public async Task<IEnumerable<QuotationGetDto>> GetAllQuotationsAsync()
+        public async Task<ApiResponse<List<QuotationGetDto>>> GetAllQuotationsAsync()
         {
-            var quotations = await _unitOfWork.Quotations.GetAllAsync();
-
-            return _mapper.Map<IEnumerable<QuotationGetDto>>(quotations);
+            try
+            {
+                var quotations = await _unitOfWork.Quotations.GetAllAsync();
+                var quotationDtos = _mapper.Map<List<QuotationGetDto>>(quotations.ToList());
+                return ApiResponse<List<QuotationGetDto>>.SuccessResult(quotationDtos, _localizationService.GetLocalizedString("QuotationsRetrieved"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<List<QuotationGetDto>>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
 
-        public async Task<QuotationGetDto?> GetQuotationByIdAsync(long id)
+        public async Task<ApiResponse<QuotationGetDto>> GetQuotationByIdAsync(long id)
         {
-            var quotation = await _unitOfWork.Quotations.GetByIdAsync(id);
+            try
+            {
+                var quotation = await _unitOfWork.Quotations.GetByIdAsync(id);
+                if (quotation == null)
+                {
+                    return ApiResponse<QuotationGetDto>.ErrorResult(_localizationService.GetLocalizedString("QuotationNotFound"), "Not found", StatusCodes.Status404NotFound);
+                }
 
-            return quotation != null ? _mapper.Map<QuotationGetDto>(quotation) : null;
+                var quotationDto = _mapper.Map<QuotationGetDto>(quotation);
+                return ApiResponse<QuotationGetDto>.SuccessResult(quotationDto, _localizationService.GetLocalizedString("QuotationRetrieved"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<QuotationGetDto>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
 
-        public async Task<QuotationDto> CreateQuotationAsync(CreateQuotationDto createQuotationDto)
+        public async Task<ApiResponse<QuotationDto>> CreateQuotationAsync(CreateQuotationDto createQuotationDto)
         {
-            var quotation = _mapper.Map<Quotation>(createQuotationDto);
-            quotation.CreatedDate = DateTime.UtcNow;
+            try
+            {
+                var quotation = _mapper.Map<Quotation>(createQuotationDto);
+                quotation.CreatedDate = DateTime.UtcNow;
 
-            await _unitOfWork.Quotations.AddAsync(quotation);
-            await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.Quotations.AddAsync(quotation);
+                await _unitOfWork.SaveChangesAsync();
 
-            return _mapper.Map<QuotationDto>(quotation);
+                var quotationDto = _mapper.Map<QuotationDto>(quotation);
+                return ApiResponse<QuotationDto>.SuccessResult(quotationDto, _localizationService.GetLocalizedString("QuotationCreated"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<QuotationDto>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
 
-        public async Task<QuotationDto?> UpdateQuotationAsync(long id, UpdateQuotationDto updateQuotationDto)
+        public async Task<ApiResponse<QuotationDto>> UpdateQuotationAsync(long id, UpdateQuotationDto updateQuotationDto)
         {
-            var quotation = await _unitOfWork.Quotations.GetByIdAsync(id);
-            if (quotation == null)
-                return null;
+            try
+            {
+                var quotation = await _unitOfWork.Quotations.GetByIdAsync(id);
+                if (quotation == null)
+                {
+                    return ApiResponse<QuotationDto>.ErrorResult(_localizationService.GetLocalizedString("QuotationNotFound"), "Not found", StatusCodes.Status404NotFound);
+                }
 
-            _mapper.Map(updateQuotationDto, quotation);
-            quotation.UpdatedDate = DateTime.UtcNow;
+                _mapper.Map(updateQuotationDto, quotation);
+                quotation.UpdatedDate = DateTime.UtcNow;
 
-            await _unitOfWork.Quotations.UpdateAsync(quotation);
-            await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.Quotations.UpdateAsync(quotation);
+                await _unitOfWork.SaveChangesAsync();
 
-            return _mapper.Map<QuotationDto>(quotation);
+                var quotationDto = _mapper.Map<QuotationDto>(quotation);
+                return ApiResponse<QuotationDto>.SuccessResult(quotationDto, _localizationService.GetLocalizedString("QuotationUpdated"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<QuotationDto>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
 
-        public async Task<bool> DeleteQuotationAsync(long id)
+        public async Task<ApiResponse<object>> DeleteQuotationAsync(long id)
         {
-            var quotation = await _unitOfWork.Quotations.GetByIdAsync(id);
-            if (quotation == null)
-                return false;
+            try
+            {
+                var quotation = await _unitOfWork.Quotations.GetByIdAsync(id);
+                if (quotation == null)
+                {
+                    return ApiResponse<object>.ErrorResult(_localizationService.GetLocalizedString("QuotationNotFound"), "Not found", StatusCodes.Status404NotFound);
+                }
 
-             await _unitOfWork.Quotations.SoftDeleteAsync(id);
-            await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.Quotations.SoftDeleteAsync(id);
+                await _unitOfWork.SaveChangesAsync();
 
-            return true;
+                return ApiResponse<object>.SuccessResult(null, _localizationService.GetLocalizedString("QuotationDeleted"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<object>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
 
-        public async Task<IEnumerable<QuotationGetDto>> GetQuotationsByPotentialCustomerIdAsync(long potentialCustomerId)
+        public async Task<ApiResponse<List<QuotationGetDto>>> GetQuotationsByPotentialCustomerIdAsync(long potentialCustomerId)
         {
-            var quotations = await _unitOfWork.Quotations
-                .GetAllAsync();
-
-            return _mapper.Map<IEnumerable<QuotationGetDto>>(quotations);
+            try
+            {
+                var quotations = await _unitOfWork.Quotations.FindAsync(q => q.PotentialCustomerId == potentialCustomerId);
+                var quotationDtos = _mapper.Map<List<QuotationGetDto>>(quotations.ToList());
+                return ApiResponse<List<QuotationGetDto>>.SuccessResult(quotationDtos, _localizationService.GetLocalizedString("QuotationsByPotentialCustomerRetrieved"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<List<QuotationGetDto>>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
 
-        public async Task<IEnumerable<QuotationGetDto>> GetQuotationsByRepresentativeIdAsync(long representativeId)
+        public async Task<ApiResponse<List<QuotationGetDto>>> GetQuotationsByRepresentativeIdAsync(long representativeId)
         {
-            var quotations = await _unitOfWork.Quotations
-                .GetAllAsync();
-
-            return _mapper.Map<IEnumerable<QuotationGetDto>>(quotations);
+            try
+            {
+                var quotations = await _unitOfWork.Quotations.FindAsync(q => q.RepresentativeId == representativeId);
+                var quotationDtos = _mapper.Map<List<QuotationGetDto>>(quotations.ToList());
+                return ApiResponse<List<QuotationGetDto>>.SuccessResult(quotationDtos, _localizationService.GetLocalizedString("QuotationsByRepresentativeRetrieved"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<List<QuotationGetDto>>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
 
-        public async Task<IEnumerable<QuotationGetDto>> GetQuotationsByStatusAsync(int status)
+        public async Task<ApiResponse<List<QuotationGetDto>>> GetQuotationsByStatusAsync(int status)
         {
-            var quotations = await _unitOfWork.Quotations
-                .GetAllAsync();
-
-            return _mapper.Map<IEnumerable<QuotationGetDto>>(quotations);
+            try
+            {
+                var quotations = await _unitOfWork.Quotations.FindAsync(q => q.Status == status);
+                var quotationDtos = _mapper.Map<List<QuotationGetDto>>(quotations.ToList());
+                return ApiResponse<List<QuotationGetDto>>.SuccessResult(quotationDtos, _localizationService.GetLocalizedString("QuotationsByStatusRetrieved"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<List<QuotationGetDto>>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
 
-        public async Task<bool> QuotationExistsAsync(long id)
+        public async Task<ApiResponse<bool>> QuotationExistsAsync(long id)
         {
-            return await _unitOfWork.Quotations.ExistsAsync(id);
+            try
+            {
+                var exists = await _unitOfWork.Quotations.ExistsAsync(id);
+                return ApiResponse<bool>.SuccessResult(exists, exists ? _localizationService.GetLocalizedString("QuotationRetrieved") : _localizationService.GetLocalizedString("QuotationNotFound"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

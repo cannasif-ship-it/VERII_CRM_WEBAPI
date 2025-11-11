@@ -34,8 +34,12 @@ namespace cms_webapi.Data.Configurations
 
             // Title specific properties
             builder.Property(e => e.TitleName)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsRequired();
+
+            builder.Property(e => e.Code)
+                .HasMaxLength(10)
+                .IsRequired(false);
 
             // Relationship configuration
             builder.HasMany(e => e.Contacts)

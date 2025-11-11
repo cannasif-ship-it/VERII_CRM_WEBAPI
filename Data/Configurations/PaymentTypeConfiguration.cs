@@ -28,17 +28,15 @@ namespace cms_webapi.Data.Configurations
             builder.Property(e => e.DeletedDate)
                 .IsRequired(false);
 
+            // Audit fields are long? (FK to User); no MaxLength configs required
             builder.Property(e => e.CreatedBy)
-                .IsRequired(false)
-                .HasMaxLength(100);
+                .IsRequired(false);
 
             builder.Property(e => e.UpdatedBy)
-                .IsRequired(false)
-                .HasMaxLength(100);
+                .IsRequired(false);
 
             builder.Property(e => e.DeletedBy)
-                .IsRequired(false)
-                .HasMaxLength(100);
+                .IsRequired(false);
 
             // PaymentType specific properties
             builder.Property(e => e.Name)
@@ -58,8 +56,8 @@ namespace cms_webapi.Data.Configurations
             builder.HasIndex(e => e.CreatedDate)
                 .HasDatabaseName("IX_PaymentType_CreatedDate");
 
-            // Query filters for soft delete
-            builder.HasQueryFilter(e => e.DeletedDate == null);
+            // Query filter for soft delete
+            builder.HasQueryFilter(e => !e.IsDeleted);
         }
     }
 }
