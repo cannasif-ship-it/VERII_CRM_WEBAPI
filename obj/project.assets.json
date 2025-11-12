@@ -7569,19 +7569,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kayhan.akdogan\\.nuget\\packages\\": {}
+    "C:\\Users\\Can\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kayhan.akdogan\\OneDrive - PUKASOFT YAZILIM SAN.VE TIC.LTD.STI\\Belgeler\\GitHub\\VERII_CRM_WEBAPI\\cms-webapi.csproj",
+      "projectUniqueName": "C:\\Users\\Can\\Desktop\\Github\\VERII_CRM_WEBAPI\\cms-webapi.csproj",
       "projectName": "cms-webapi",
-      "projectPath": "C:\\Users\\kayhan.akdogan\\OneDrive - PUKASOFT YAZILIM SAN.VE TIC.LTD.STI\\Belgeler\\GitHub\\VERII_CRM_WEBAPI\\cms-webapi.csproj",
-      "packagesPath": "C:\\Users\\kayhan.akdogan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kayhan.akdogan\\OneDrive - PUKASOFT YAZILIM SAN.VE TIC.LTD.STI\\Belgeler\\GitHub\\VERII_CRM_WEBAPI\\obj\\",
+      "projectPath": "C:\\Users\\Can\\Desktop\\Github\\VERII_CRM_WEBAPI\\cms-webapi.csproj",
+      "packagesPath": "C:\\Users\\Can\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Can\\Desktop\\Github\\VERII_CRM_WEBAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kayhan.akdogan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Can\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -7605,7 +7605,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net9.0": {
@@ -7685,7 +7685,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

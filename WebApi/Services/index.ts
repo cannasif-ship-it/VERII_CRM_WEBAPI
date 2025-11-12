@@ -13,9 +13,11 @@ export { PaymentTypeService } from './PaymentTypeService';
 export { ProductPricingService } from './ProductPricingService';
 export { ProductPricingGroupByService } from './ProductPricingGroupByService';
 export { QuotationService } from './QuotationService';
+export { QuotationLineService } from './QuotationLineService';
 export { ShippingAddressService } from './ShippingAddressService';
 export { TitleService } from './TitleService';
 export { UserDiscountLimitService } from './UserDiscountLimitService';
+export { UserAuthorityService } from './UserAuthorityService';
 export { UserService } from './UserService';
 
 // Service interfaces

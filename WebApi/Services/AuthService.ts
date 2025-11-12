@@ -1,122 +1,124 @@
+import axios, { AxiosRequestConfig } from 'axios';
 import { ApiResponseErrorHelper } from '../ApiResponseErrorHelper';
-import { API_BASE_URL, CURRENTLANGUAGE, getAuthToken } from '../baseUrl';
-import { IAuthService } from '../Interfaces/IAuthService';
+import { API_BASE_URL, DEFAULT_TIMEOUT, CURRENTLANGUAGE, getAuthToken, setAuthToken, removeAuthToken } from '../baseUrl';
 import { ApiResponse } from '../Models/ApiResponse';
 import { LoginDto, LoginResponseDto } from '../Models/AuthDto';
-import { CreateUserDto, UserDto } from '../Models/UserDto';
-import { User } from '../Models/User';
+import { UserDto } from '../Models/UserDto';
+import { IAuthService } from '../Interfaces/IAuthService';
 
-function buildHeaders(): Record<string, string> {
-  const token = getAuthToken();
-  const headers: Record<string, string> = {
+const api = axios.create({
+  baseURL: API_BASE_URL + '/auth',
+  timeout: DEFAULT_TIMEOUT,
+  headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
     'X-Language': CURRENTLANGUAGE,
-  };
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-  return headers;
-}
+  },
+});
 
-async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(url, init);
-  const data = await res.json().catch(() => null);
-  if (!res.ok) {
-    const err = new Error((data && (data.message || data.error)) || res.statusText);
-    // @ts-ignore attach status for helpers
-    err.status = res.status;
-    throw err;
-  }
-  return data as T;
-}
-
-function toUserFromLoginResponse(data: LoginResponseDto['user']): User {
-  return {
-    id: data.id,
-    createdDate: data.createdDate,
-    updatedDate: data.createdDate,
-    deletedDate: undefined as any,
-    isDeleted: data.isDeleted,
-    username: data.username,
-    email: data.email,
-    passwordHash: '',
-    firstName: data.firstName,
-    lastName: data.lastName,
-    phoneNumber: data.phoneNumber,
-    roleId: 0,
-    isEmailConfirmed: data.isEmailConfirmed,
-    isActive: !data.isDeleted,
-    fullName: data.fullName,
-    lastLoginDate: data.lastLoginDate,
-  } as User;
-}
+api.interceptors.request.use((config: AxiosRequestConfig) => {
+  const token = getAuthToken();
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
 
 export class AuthService implements IAuthService {
-  private baseUrl = `${API_BASE_URL}/Auth`;
-
   async login(loginDto: LoginDto): Promise<ApiResponse<LoginResponseDto>> {
     try {
-      const data = await requestJson<ApiResponse<LoginResponseDto>>(`${this.baseUrl}/login`, {
-        method: 'POST',
-        headers: buildHeaders(),
-        body: JSON.stringify(loginDto),
-      });
-      return data;
-    } catch (error: any) {
+      // Backend LoginRequest: { email, password }
+      const payload = { email: loginDto.usernameOrEmail, password: loginDto.password };
+      const response = await api.post<ApiResponse<{ token: string }>>('/login', payload);
+      const token = (response.data as any)?.data?.token;
+      let user: UserDto | undefined = undefined;
+      let expiresAt = '';
+
+      if (token) {
+        setAuthToken(token);
+        // Decode JWT exp claim if present to populate expiresAt
+        try {
+          const parts = token.split('.');
+          if (parts.length === 3) {
+            const payloadJson = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+            if (payloadJson && payloadJson.exp) {
+              expiresAt = new Date(payloadJson.exp * 1000).toISOString();
+            }
+          }
+        } catch {}
+
+        // Try to fetch profile to populate user
+        try {
+          const profile = await api.get<ApiResponse<UserDto>>('/user');
+          user = profile.data?.data;
+        } catch {
+          // ignore profile errors, token is sufficient for login success
+        }
+      }
+
+      const result: ApiResponse<LoginResponseDto> = {
+        success: response.data.success,
+        message: response.data.message,
+        exceptionMessage: response.data.exceptionMessage,
+        statusCode: response.data.statusCode,
+        data: token ? { token, expiresAt, user: (user as UserDto) ?? ({} as UserDto) } : undefined,
+        errors: response.data.errors,
+        timestamp: response.data.timestamp,
+        className: 'ApiResponse'
+      };
+      return result;
+    } catch (error) {
       return ApiResponseErrorHelper.create<LoginResponseDto>(error);
     }
   }
 
-  async register(createUserDto: CreateUserDto): Promise<ApiResponse<UserDto>> {
+  async adminLogin(): Promise<ApiResponse<{ token: string }>> {
     try {
-      const data = await requestJson<ApiResponse<UserDto>>(`${this.baseUrl}/register`, {
-        method: 'POST',
-        headers: buildHeaders(),
-        body: JSON.stringify(createUserDto),
-      });
-      return data;
-    } catch (error: any) {
+      const response = await api.post<ApiResponse<{ token: string }>>('/admin-login');
+      const token = response.data?.data?.token;
+      if (token) setAuthToken(token);
+      return response.data;
+    } catch (error) {
+      return ApiResponseErrorHelper.create<{ token: string }>(error);
+    }
+  }
+
+  async register(createUserDto: import('../Models/UserDto').CreateUserDto): Promise<ApiResponse<UserDto>> {
+    return {
+      success: false,
+      message: 'register endpointi tanımlı değil',
+      exceptionMessage: 'NotImplemented',
+      data: undefined,
+      errors: [],
+      timestamp: new Date().toISOString(),
+      statusCode: 501,
+      className: 'ApiResponse'
+    };
+  }
+
+  async validateUser(usernameOrEmail: string, password: string): Promise<import('../Models/User').User | null> {
+    // Backend tarafında ayrı bir validate endpointi yok, login ile doğrulanıyor.
+    return null;
+  }
+
+  async emailExists(email: string): Promise<boolean> {
+    // Backend tarafında doğrudan bir kontrol endpointi tanımlı değil.
+    return false;
+  }
+
+  async usernameExists(username: string): Promise<boolean> {
+    // Backend tarafında doğrudan bir kontrol endpointi tanımlı değil.
+    return false;
+  }
+
+  async getProfile(): Promise<ApiResponse<UserDto>> {
+    try {
+      const response = await api.get<ApiResponse<UserDto>>('/user');
+      return response.data;
+    } catch (error) {
       return ApiResponseErrorHelper.create<UserDto>(error);
     }
   }
 
-  async validateUser(usernameOrEmail: string, password: string): Promise<User | null> {
-    try {
-      const payload: LoginDto = { usernameOrEmail, password };
-      const data = await requestJson<ApiResponse<LoginResponseDto>>(`${this.baseUrl}/login`, {
-        method: 'POST',
-        headers: buildHeaders(),
-        body: JSON.stringify(payload),
-      });
-      if (data.success && data.data) {
-        return toUserFromLoginResponse(data.data.user);
-      }
-      return null;
-    } catch {
-      return null;
-    }
-  }
-
-  async emailExists(email: string): Promise<boolean> {
-    try {
-      const data = await requestJson<ApiResponse<boolean>>(`${this.baseUrl}/email-exists?email=${encodeURIComponent(email)}`, {
-        method: 'GET',
-        headers: buildHeaders(),
-      });
-      return !!data.data;
-    } catch {
-      return false;
-    }
-  }
-
-  async usernameExists(username: string): Promise<boolean> {
-    try {
-      const data = await requestJson<ApiResponse<boolean>>(`${this.baseUrl}/username-exists?username=${encodeURIComponent(username)}`, {
-        method: 'GET',
-        headers: buildHeaders(),
-      });
-      return !!data.data;
-    } catch {
-      return false;
-    }
+  logout(): void {
+    removeAuthToken();
   }
 }
