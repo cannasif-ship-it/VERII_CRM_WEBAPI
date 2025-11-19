@@ -69,6 +69,11 @@ builder.Services.AddScoped<IPaymentTypeService, PaymentTypeService>();
 builder.Services.AddScoped<IShippingAddressService, ShippingAddressService>();
 builder.Services.AddScoped<IQuotationService, QuotationService>();
 builder.Services.AddScoped<IQuotationLineService, QuotationLineService>();
+builder.Services.AddScoped<IQuotationApprovalService, QuotationApprovalService>();
+builder.Services.AddScoped<IQuotationLineApprovalService, QuotationLineApprovalService>();
+builder.Services.AddScoped<IApprovalWorkflowService, ApprovalWorkflowService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserSessionService, UserSessionService>();
 builder.Services.AddScoped<IUserAuthorityService, UserAuthorityService>();
 
 // Configure Localization

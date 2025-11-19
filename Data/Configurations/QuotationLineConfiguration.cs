@@ -16,9 +16,7 @@ namespace cms_webapi.Data.Configurations
                 .HasMaxLength(100)
                 .IsRequired(false);
 
-            builder.Property(e => e.ProductName)
-                .HasMaxLength(250)
-                .IsRequired();
+            
 
             // Decimal precisions are defined via [Column(TypeName = "decimal(18,6)")] in the model
             // Relationships

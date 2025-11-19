@@ -9,9 +9,16 @@ namespace cms_webapi.Models
     public class Customer : BaseHeaderEntity
     {
         // Basic Information
+        [MaxLength(100)]
+        [Column(TypeName = "nvarchar(100)")]
         public string? CustomerCode { get; set; } // CariKod
+
+        [MaxLength(250)]
+        [Column(TypeName = "nvarchar(250)")]
         public string CustomerName { get; set; } = string.Empty; // CariAd
         public long? CustomerTypeId { get; set; } // 'M' = Customer, 'T' = Supplier, 'P' = Potential
+        [ForeignKey("CustomerTypeId")]
+        public CustomerType? CustomerTypes { get; set; } // CariTipId
 
         // Tax Information
         public string? TaxOffice { get; set; } // VergiDaire
@@ -55,7 +62,7 @@ namespace cms_webapi.Models
         public City? Cities { get; set; } // Sehir
         [ForeignKey("DistrictId")]
         public District? Districts { get; set; } // Ilce
-        [ForeignKey("CustomerTypeId")]
-        public CustomerType? CustomerTypes { get; set; } // CariTipId
+
+
     }
 }

@@ -27,7 +27,5 @@ namespace cms_webapi.Models
         [Column(TypeName = "decimal(18,6)")]
         public decimal? MaxDiscount3 { get; set; }  // opsiyonel, örn: %3
 
-
-
     }
 }

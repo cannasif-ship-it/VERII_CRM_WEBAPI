@@ -68,8 +68,14 @@ namespace cms_webapi.Models
        [Column(TypeName = "decimal(18,6)")]
         public double? ExchangeRate { get; set; } // Döviz kuru
 
-       [Column(TypeName = "bit")]
-      public bool HasCustomerSpecificDiscount { get; set; } = false; // Müşteri özelindekiler için indirim var mı?
+        [Column(TypeName = "bit")]
+        public bool HasCustomerSpecificDiscount { get; set; } = false; // Müşteri özelindekiler için indirim var mı?
+       
+        [Column(TypeName = "decimal(18,6)")]
+        public decimal Total { get; set; } = 0m; // KDV hariç toplam
+
+        [Column(TypeName = "decimal(18,6)")]
+        public decimal GrandTotal { get; set; } = 0m; // KDV dahil toplam
 
     }
 }

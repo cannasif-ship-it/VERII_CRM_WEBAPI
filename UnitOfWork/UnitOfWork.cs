@@ -38,6 +38,10 @@ namespace cms_webapi.UnitOfWork
         private IGenericRepository<ShippingAddress>? _shippingAddresses;
         private IGenericRepository<Quotation>? _quotations;
         private IGenericRepository<QuotationLine>? _quotationLines;
+        private IGenericRepository<UserSession>? _userSessions;
+        private IGenericRepository<QuotationApproval>? _quotationApprovals;
+        private IGenericRepository<QuotationLineApproval>? _quotationLineApprovals;
+        private IGenericRepository<ApprovalWorkflow>? _approvalWorkflows;
 
         public UnitOfWork(CmsDbContext context, IHttpContextAccessor httpContextAccessor)
         {
@@ -67,6 +71,10 @@ namespace cms_webapi.UnitOfWork
         public IGenericRepository<ShippingAddress> ShippingAddresses{get{_shippingAddresses ??= new GenericRepository<ShippingAddress>(_context, _httpContextAccessor);return _shippingAddresses;}}
         public IGenericRepository<Quotation> Quotations{get{_quotations ??= new GenericRepository<Quotation>(_context, _httpContextAccessor);return _quotations;}}
         public IGenericRepository<QuotationLine> QuotationLines{get{_quotationLines ??= new GenericRepository<QuotationLine>(_context, _httpContextAccessor);return _quotationLines;}}
+        public IGenericRepository<UserSession> UserSessions{get{_userSessions ??= new GenericRepository<UserSession>(_context, _httpContextAccessor);return _userSessions;}}
+        public IGenericRepository<QuotationApproval> QuotationApprovals{get{_quotationApprovals ??= new GenericRepository<QuotationApproval>(_context, _httpContextAccessor);return _quotationApprovals;}}
+        public IGenericRepository<QuotationLineApproval> QuotationLineApprovals{get{_quotationLineApprovals ??= new GenericRepository<QuotationLineApproval>(_context, _httpContextAccessor);return _quotationLineApprovals;}}
+        public IGenericRepository<ApprovalWorkflow> ApprovalWorkflows{get{_approvalWorkflows ??= new GenericRepository<ApprovalWorkflow>(_context, _httpContextAccessor);return _approvalWorkflows;}}
 
 
         /// <summary>

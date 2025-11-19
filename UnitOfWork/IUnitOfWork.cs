@@ -28,8 +28,10 @@ namespace cms_webapi.UnitOfWork
         IGenericRepository<ShippingAddress> ShippingAddresses { get; }
         IGenericRepository<Quotation> Quotations { get; }
         IGenericRepository<QuotationLine> QuotationLines { get; }
-
-
+        IGenericRepository<UserSession> UserSessions { get; }
+        IGenericRepository<QuotationApproval> QuotationApprovals { get; }
+        IGenericRepository<QuotationLineApproval> QuotationLineApprovals { get; }
+        IGenericRepository<ApprovalWorkflow> ApprovalWorkflows { get; }
 
         /// <summary>
         /// Save all changes to the database within a transaction

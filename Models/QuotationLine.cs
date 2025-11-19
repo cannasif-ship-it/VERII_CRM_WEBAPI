@@ -8,21 +8,15 @@ namespace cms_webapi.Models
     public class QuotationLine : BaseEntity
     {
         // 🔹 İlişki bilgileri
-        [ForeignKey("Quotation")]
         public long QuotationId { get; set; }
+        
+        [ForeignKey("QuotationId")]
         public Quotation Quotation { get; set; } = null!; // Navigation property
-
-        [ForeignKey("Product")]
-        public long? ProductId { get; set; } // Stok veya ürün ID
 
         // 🔹 Ürün bilgileri
         [MaxLength(100)]
         [Column(TypeName = "nvarchar(100)")]
         public string ProductCode { get; set; } = string.Empty;
-
-        [MaxLength(250)]
-        [Column(TypeName = "nvarchar(250)")]
-        public string ProductName { get; set; } = string.Empty;
 
         // 🔹 Miktar & Fiyat
         [Column(TypeName = "decimal(18,6)")]
@@ -68,5 +62,9 @@ namespace cms_webapi.Models
         [MaxLength(250)]
         [Column(TypeName = "nvarchar(250)")]
         public string? Description { get; set; } // Satır açıklaması (opsiyonel)
+
+        [Column(TypeName = "bit")]
+        public bool IsApprovalRequired { get; set; } = false; // Onay gerektiriyor mu?
+
     }
 }
