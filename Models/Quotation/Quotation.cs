@@ -13,8 +13,9 @@ namespace cms_webapi.Models
 
         public string? ErpCustomerCode { get; set; } = String.Empty;  // e.g., "CUST001"
 
-        [ForeignKey("Contact")]
+
         public long? ContactId { get; set; } // müşteri temsilcisi ID
+        [ForeignKey("ContactId")]
         public Contact? Contact { get; set; } // müşteri temsilcisi
 
         public DateTime? ValidUntil { get; set; } // Teklif geçerlilik tarihi
@@ -26,12 +27,14 @@ namespace cms_webapi.Models
         [ForeignKey("ShippingAddressId")]
         public ShippingAddress? ShippingAddress { get; set; } // Navigation Property (Teslimat adresi bilgisi)
 
-        [ForeignKey("Representative")]
+
         public long? RepresentativeId { get; set; } // Satış temsilcisi ID
+        [ForeignKey("RepresentativeId")]
         public User? Representative { get; set; } // Satış temsilcisi
 
-        [ForeignKey("Activity")]
+
         public long? ActivityId { get; set; } // Bağlı olduğu activite
+        [ForeignKey("ActivityId")]
         public Activity? Activity { get; set; } // Bağlı olduğu activite
 
         [Column(TypeName = "int")]
