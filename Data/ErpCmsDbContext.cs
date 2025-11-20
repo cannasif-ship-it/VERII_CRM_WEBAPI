@@ -19,6 +19,7 @@ namespace cms_webapi.Data
         public DbSet<RII_VW_DEPO> RII_VW_DEPO { get; set; }
         public DbSet<RII_VW_PROJE> RII_VW_PROJE { get; set; }
         public DbSet<RII_VW_STOK> RII_VW_STOK { get; set; }
+        public DbSet<ERP_GetProductPricing> ERP_GetProductPricing { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -70,6 +71,14 @@ namespace cms_webapi.Data
                 entity.Property(e => e.STOK_ADI).HasMaxLength(50);
                 entity.Property(e => e.GRUP_KODU).HasMaxLength(10);
                 entity.Property(e => e.URETICI_KODU).HasMaxLength(25);
+            });
+
+            modelBuilder.Entity<ERP_GetProductPricing>(entity =>
+            {
+                entity.HasNoKey();
+                entity.Property(e => e.STOK_KODU).HasMaxLength(35);
+                entity.Property(e => e.STOK_ADI).HasMaxLength(200);
+                entity.Property(e => e.Currency).HasMaxLength(100);
             });
         }
     }

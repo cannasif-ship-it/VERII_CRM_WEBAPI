@@ -20,6 +20,8 @@ namespace cms_webapi.Interfaces
             string? seriNo = null, 
             string? projeKodu = null);
 
+        Task<ApiResponse<IEnumerable<ERP_GetProductPricing>>> GetProductPricingAsync(ErpCmsDbContext context, string stokKodu);
+
         // Health Check
         Task<ApiResponse<object>> HealthCheckAsync();
     }

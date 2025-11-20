@@ -67,6 +67,13 @@ namespace cms_webapi.Controllers
             }
         }
 
+        [HttpGet("product-pricing")]
+        public async Task<IActionResult> GetProductPricing([FromQuery] string stokKodu)
+        {
+            var result = await _IErpService.GetProductPricingAsync(_erpContext, stokKodu);
+            return StatusCode(result.StatusCode, result);
+        }
+
         // Health Check
         [HttpGet("health")]
         public async Task<IActionResult> HealthCheck()

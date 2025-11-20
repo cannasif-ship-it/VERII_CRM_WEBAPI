@@ -117,6 +117,22 @@ namespace cms_webapi.Services
             }
         }
 
+        public async Task<ApiResponse<IEnumerable<ERP_GetProductPricing>>> GetProductPricingAsync(ErpCmsDbContext context, string stokKodu)
+        {
+            try
+            {
+                var result = await context.ERP_GetProductPricing
+                    .FromSqlInterpolated($"SELECT * FROM dbo.GetProductPricing({stokKodu})")
+                    .ToListAsync();
+                return ApiResponse<IEnumerable<ERP_GetProductPricing>>.SuccessResult(result, _localizationService.GetLocalizedString("ProductPricingRetrieved"));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting product pricing");
+                return ApiResponse<IEnumerable<ERP_GetProductPricing>>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
+        }
+
         // Health Check
         public async Task<ApiResponse<object>> HealthCheckAsync()
         {
