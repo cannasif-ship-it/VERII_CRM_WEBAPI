@@ -31,6 +31,7 @@ namespace cms_webapi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateUserDto dto)
         {
+
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var result = await _service.CreateUserAsync(dto);
             return StatusCode(result.StatusCode, result);

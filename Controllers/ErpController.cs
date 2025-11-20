@@ -56,15 +56,8 @@ namespace cms_webapi.Controllers
             [FromQuery] string? seriNo = null,
             [FromQuery] string? projeKodu = null)
         {
-            try
-            {
                 var result = await _IErpService.GetOnHandQuantityWithSerialAsync(_erpContext, depoKodu, stokKodu, seriNo, projeKodu);
                 return StatusCode(result.StatusCode, result);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Success = false, Message = "An error occurred", Error = ex.Message });
-            }
         }
 
         [HttpGet("product-pricing")]
@@ -74,7 +67,6 @@ namespace cms_webapi.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        // Health Check
         [HttpGet("health")]
         public async Task<IActionResult> HealthCheck()
         {

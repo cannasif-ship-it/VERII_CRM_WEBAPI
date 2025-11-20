@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace depoWebAPI.Models
 {
-    public class ERP_GetProductPricing
+    public class RII_FN_GetProductPricing
     {
         public string? STOK_KODU { get; set; }
         public string? STOK_ADI { get; set; }
