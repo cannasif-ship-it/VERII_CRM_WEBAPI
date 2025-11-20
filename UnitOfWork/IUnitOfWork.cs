@@ -29,6 +29,7 @@ namespace cms_webapi.UnitOfWork
         IGenericRepository<Quotation> Quotations { get; }
         IGenericRepository<QuotationLine> QuotationLines { get; }
         IGenericRepository<UserSession> UserSessions { get; }
+        IGenericRepository<QuotationDocumentType> QuotationDocumentTypes { get; }
         IGenericRepository<QuotationApproval> QuotationApprovals { get; }
         IGenericRepository<QuotationLineApproval> QuotationLineApprovals { get; }
         IGenericRepository<ApprovalWorkflow> ApprovalWorkflows { get; }

@@ -74,6 +74,7 @@ builder.Services.AddScoped<IQuotationLineApprovalService, QuotationLineApprovalS
 builder.Services.AddScoped<IApprovalWorkflowService, ApprovalWorkflowService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserSessionService, UserSessionService>();
+builder.Services.AddScoped<IQuotationDocumentTypeService, QuotationDocumentTypeService>();
 builder.Services.AddScoped<IUserAuthorityService, UserAuthorityService>();
 
 // Configure Localization

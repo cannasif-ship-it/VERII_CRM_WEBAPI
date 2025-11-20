@@ -26,6 +26,7 @@ namespace cms_webapi.Data
         public DbSet<ShippingAddress> ShippingAddresses { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
         public DbSet<QuotationLine> QuotationLines { get; set; }
+        public DbSet<QuotationDocumentType> QuotationDocumentTypes { get; set; }
         public DbSet<QuotationApproval> QuotationApprovals { get; set; }
         public DbSet<QuotationLineApproval> QuotationLineApprovals { get; set; }
         public DbSet<ApprovalWorkflow> ApprovalWorkflows { get; set; }

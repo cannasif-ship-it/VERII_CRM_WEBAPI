@@ -1,0 +1,21 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace cms_webapi.Models
+{
+    [Table("RII_QUOTATION_DOCUMENT_TYPE")]
+    public class QuotationDocumentType : BaseEntity
+    {
+        [Required]
+        [MaxLength(100)]
+        [Column(TypeName = "nvarchar(30)")]
+        public string DocumentTypeName { get; set; } = null!; // Document type name (örnek: SAT, TEK, T)
+
+        [MaxLength(500)]
+        [Column(TypeName = "nvarchar(500)")]
+        public string? Description { get; set; } // Açıklama
+
+
+    }
+}
