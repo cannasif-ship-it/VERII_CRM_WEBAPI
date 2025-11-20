@@ -13,12 +13,14 @@ namespace cms_webapi.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILocalizationService _localizationService;
+        private readonly IDocumentNumberService _documentNumberService;
 
-        public QuotationService(IUnitOfWork unitOfWork, IMapper mapper, ILocalizationService localizationService)
+        public QuotationService(IUnitOfWork unitOfWork, IMapper mapper, ILocalizationService localizationService, IDocumentNumberService documentNumberService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _localizationService = localizationService;
+            _documentNumberService = documentNumberService;
         }
 
         public async Task<ApiResponse<List<QuotationGetDto>>> GetAllQuotationsAsync()
@@ -171,6 +173,70 @@ namespace cms_webapi.Services
             catch (Exception ex)
             {
                 return ApiResponse<bool>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        public async Task<ApiResponse<CreateBulkQuotationResultDto>> CreateBulkQuotationAsync(CreateBulkQuotationDto dto)
+        {
+            try
+            {
+                await _unitOfWork.BeginTransactionAsync();
+
+                var offerNo = await _documentNumberService.GenerateQuotationNumberAsync(dto.customerTypeId);
+
+                var quotation = _mapper.Map<Quotation>(dto.Header);
+                quotation.OfferNo = offerNo;
+                quotation.CreatedDate = DateTime.UtcNow;
+
+                await _unitOfWork.Quotations.AddAsync(quotation);
+                await _unitOfWork.SaveChangesAsync();
+
+                var createdLines = new List<QuotationLine>();
+                foreach (var line in dto.Lines)
+                {
+                    var entity = new QuotationLine
+                    {
+                        QuotationId = quotation.Id,
+                        ProductCode = line.ProductCode,
+                        Quantity = line.Quantity,
+                        UnitPrice = line.UnitPrice,
+                        DiscountRate1 = line.DiscountRate1,
+                        DiscountAmount1 = line.DiscountAmount1,
+                        DiscountRate2 = line.DiscountRate2,
+                        DiscountAmount2 = line.DiscountAmount2,
+                        DiscountRate3 = line.DiscountRate3,
+                        DiscountAmount3 = line.DiscountAmount3,
+                        VatRate = line.VatRate,
+                        VatAmount = line.VatAmount,
+                        LineTotal = line.LineTotal,
+                        LineGrandTotal = line.LineGrandTotal,
+                        Description = line.Description,
+                        CreatedDate = DateTime.UtcNow
+                    };
+
+                    await _unitOfWork.QuotationLines.AddAsync(entity);
+                    createdLines.Add(entity);
+                }
+
+                quotation.Total = createdLines.Sum(x => x.LineTotal);
+                quotation.GrandTotal = createdLines.Sum(x => x.LineGrandTotal);
+                await _unitOfWork.Quotations.UpdateAsync(quotation);
+
+                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.CommitTransactionAsync();
+
+                var result = new CreateBulkQuotationResultDto
+                {
+                    Quotation = _mapper.Map<QuotationDto>(quotation),
+                    Lines = _mapper.Map<List<QuotationLineDto>>(createdLines)
+                };
+
+                return ApiResponse<CreateBulkQuotationResultDto>.SuccessResult(result, _localizationService.GetLocalizedString("QuotationCreated"));
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackTransactionAsync();
+                return ApiResponse<CreateBulkQuotationResultDto>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
             }
         }
     }

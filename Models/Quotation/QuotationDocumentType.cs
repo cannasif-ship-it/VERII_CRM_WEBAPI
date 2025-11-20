@@ -12,6 +12,10 @@ namespace cms_webapi.Models
         [Column(TypeName = "nvarchar(30)")]
         public string DocumentTypeName { get; set; } = null!; // Document type name (örnek: SAT, TEK, T)
 
+        public long customerTypeId { get; set; } // Customer type id (örnek: 1, 2, 3)
+        [ForeignKey("customerTypeId")]
+        public CustomerType CustomerType { get; set; } = null!; // Customer type (örnek: 1, 2, 3)
+
         [MaxLength(500)]
         [Column(TypeName = "nvarchar(500)")]
         public string? Description { get; set; } // Açıklama

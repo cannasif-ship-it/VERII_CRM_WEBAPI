@@ -6,6 +6,7 @@ namespace cms_webapi.DTOs
     public class QuotationDto
     {
         public long Id { get; set; }
+        public string Year { get; set; } = string.Empty;
         public long? PotentialCustomerId { get; set; }
         public string? PotentialCustomerName { get; set; }
         public string? ErpCustomerCode { get; set; }
@@ -116,6 +117,7 @@ namespace cms_webapi.DTOs
     public class QuotationGetDto
     {
         public long Id { get; set; }
+        public string Year { get; set; } = string.Empty;
         public long? PotentialCustomerId { get; set; }
         public string? PotentialCustomerName { get; set; }
         public string? ErpCustomerCode { get; set; }

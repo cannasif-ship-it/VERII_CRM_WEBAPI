@@ -6,6 +6,8 @@ namespace cms_webapi.Models
 {
     public abstract class BaseHeaderEntity : BaseEntity
     {
+        
+        public string Year { get; set; } = DateTime.Now.Year.ToString();
               
         // Completion Date (specific)
         public DateTime? CompletionDate { get; set; } // kayıt tamamlanma tarihi

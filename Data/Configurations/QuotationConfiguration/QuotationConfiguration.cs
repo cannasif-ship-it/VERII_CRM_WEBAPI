@@ -51,6 +51,11 @@ namespace cms_webapi.Data.Configurations
                 .HasColumnName("OFFER_NO")
                 .HasMaxLength(50);
 
+            builder.Property(e => e.Year)
+                .HasColumnName("YEAR")
+                .HasMaxLength(4)
+                .IsRequired();
+
             builder.Property(e => e.RevisionNo)
                 .HasColumnName("REVISION_NO")
                 .HasMaxLength(50);
@@ -149,6 +154,7 @@ namespace cms_webapi.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Indexes
+            builder.HasIndex(e => e.Year);
             builder.HasIndex(e => e.PotentialCustomerId);
             builder.HasIndex(e => e.ShippingAddressId);
             builder.HasIndex(e => e.RepresentativeId);

@@ -76,6 +76,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserSessionService, UserSessionService>();
 builder.Services.AddScoped<IQuotationDocumentTypeService, QuotationDocumentTypeService>();
 builder.Services.AddScoped<IUserAuthorityService, UserAuthorityService>();
+builder.Services.AddScoped<IDocumentNumberService, DocumentNumberService>();
 
 // Configure Localization
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");

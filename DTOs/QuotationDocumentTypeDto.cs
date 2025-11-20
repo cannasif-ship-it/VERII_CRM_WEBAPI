@@ -7,6 +7,7 @@ namespace cms_webapi.DTOs
     {
         public long Id { get; set; }
         public string DocumentTypeName { get; set; } = string.Empty;
+        public long customerTypeId { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
@@ -17,6 +18,8 @@ namespace cms_webapi.DTOs
         [Required]
         [MaxLength(30)]
         public string DocumentTypeName { get; set; } = string.Empty;
+        [Required]
+        public long customerTypeId { get; set; }
         [MaxLength(500)]
         public string? Description { get; set; }
     }
@@ -26,6 +29,8 @@ namespace cms_webapi.DTOs
         [Required]
         [MaxLength(30)]
         public string DocumentTypeName { get; set; } = string.Empty;
+        [Required]
+        public long customerTypeId { get; set; }
         [MaxLength(500)]
         public string? Description { get; set; }
     }

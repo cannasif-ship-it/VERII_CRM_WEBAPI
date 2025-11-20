@@ -14,5 +14,6 @@ namespace cms_webapi.Interfaces
         Task<ApiResponse<List<QuotationGetDto>>> GetQuotationsByRepresentativeIdAsync(long representativeId);
         Task<ApiResponse<List<QuotationGetDto>>> GetQuotationsByStatusAsync(int status);
         Task<ApiResponse<bool>> QuotationExistsAsync(long id);
+        Task<ApiResponse<CreateBulkQuotationResultDto>> CreateBulkQuotationAsync(CreateBulkQuotationDto dto);
     }
 }

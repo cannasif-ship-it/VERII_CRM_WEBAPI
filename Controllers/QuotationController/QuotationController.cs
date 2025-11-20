@@ -57,6 +57,18 @@ namespace cms_webapi.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [HttpPost("bulk")]
+        public async Task<IActionResult> CreateBulkQuotation([FromBody] CreateBulkQuotationDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _quotationService.CreateBulkQuotationAsync(dto);
+            return StatusCode(result.StatusCode, result);
+        }
+
         /// <summary>
         /// Teklifi günceller
         /// </summary>
