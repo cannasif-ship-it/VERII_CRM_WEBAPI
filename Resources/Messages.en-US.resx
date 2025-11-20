@@ -593,4 +593,83 @@
   <data name="QuotationLinesByQuotationRetrieved" xml:space="preserve">
     <value>Quotation lines by quotation retrieved successfully.</value>
   </data>
+  <!-- Quotation Document Type Messages -->
+  <data name="QuotationDocumentTypesRetrieved" xml:space="preserve">
+    <value>Quotation document types retrieved successfully.</value>
+  </data>
+  <data name="QuotationDocumentTypeNotFound" xml:space="preserve">
+    <value>Quotation document type not found.</value>
+  </data>
+  <data name="QuotationDocumentTypeRetrieved" xml:space="preserve">
+    <value>Quotation document type retrieved successfully.</value>
+  </data>
+  <data name="QuotationDocumentTypeCreated" xml:space="preserve">
+    <value>Quotation document type created successfully.</value>
+  </data>
+  <data name="QuotationDocumentTypeUpdated" xml:space="preserve">
+    <value>Quotation document type updated successfully.</value>
+  </data>
+  <data name="QuotationDocumentTypeDeleted" xml:space="preserve">
+    <value>Quotation document type deleted successfully.</value>
+  </data>
+
+  <!-- Approval Workflow Messages -->
+  <data name="ApprovalWorkflowsRetrieved" xml:space="preserve">
+    <value>Approval workflows retrieved successfully.</value>
+  </data>
+  <data name="ApprovalWorkflowNotFound" xml:space="preserve">
+    <value>Approval workflow not found.</value>
+  </data>
+  <data name="ApprovalWorkflowRetrieved" xml:space="preserve">
+    <value>Approval workflow retrieved successfully.</value>
+  </data>
+  <data name="ApprovalWorkflowCreated" xml:space="preserve">
+    <value>Approval workflow created successfully.</value>
+  </data>
+  <data name="ApprovalWorkflowUpdated" xml:space="preserve">
+    <value>Approval workflow updated successfully.</value>
+  </data>
+  <data name="ApprovalWorkflowDeleted" xml:space="preserve">
+    <value>Approval workflow deleted successfully.</value>
+  </data>
+
+  <!-- Quotation Line Approval Messages -->
+  <data name="QuotationLineApprovalsRetrieved" xml:space="preserve">
+    <value>Quotation line approvals retrieved successfully.</value>
+  </data>
+  <data name="QuotationLineApprovalNotFound" xml:space="preserve">
+    <value>Quotation line approval not found.</value>
+  </data>
+  <data name="QuotationLineApprovalRetrieved" xml:space="preserve">
+    <value>Quotation line approval retrieved successfully.</value>
+  </data>
+  <data name="QuotationLineApprovalCreated" xml:space="preserve">
+    <value>Quotation line approval created successfully.</value>
+  </data>
+  <data name="QuotationLineApprovalUpdated" xml:space="preserve">
+    <value>Quotation line approval updated successfully.</value>
+  </data>
+  <data name="QuotationLineApprovalDeleted" xml:space="preserve">
+    <value>Quotation line approval deleted successfully.</value>
+  </data>
+
+  <!-- Quotation Approval Messages -->
+  <data name="QuotationApprovalsRetrieved" xml:space="preserve">
+    <value>Quotation approvals retrieved successfully.</value>
+  </data>
+  <data name="QuotationApprovalNotFound" xml:space="preserve">
+    <value>Quotation approval not found.</value>
+  </data>
+  <data name="QuotationApprovalRetrieved" xml:space="preserve">
+    <value>Quotation approval retrieved successfully.</value>
+  </data>
+  <data name="QuotationApprovalCreated" xml:space="preserve">
+    <value>Quotation approval created successfully.</value>
+  </data>
+  <data name="QuotationApprovalUpdated" xml:space="preserve">
+    <value>Quotation approval updated successfully.</value>
+  </data>
+  <data name="QuotationApprovalDeleted" xml:space="preserve">
+    <value>Quotation approval deleted successfully.</value>
+  </data>
 </root>

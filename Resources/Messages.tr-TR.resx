@@ -593,4 +593,83 @@
   <data name="QuotationLinesByQuotationRetrieved" xml:space="preserve">
     <value>Teklife göre teklif satırları başarıyla getirildi.</value>
   </data>
+  <!-- Quotation Document Type Messages -->
+  <data name="QuotationDocumentTypesRetrieved" xml:space="preserve">
+    <value>Teklif doküman tipleri başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationDocumentTypeNotFound" xml:space="preserve">
+    <value>Teklif doküman tipi bulunamadı.</value>
+  </data>
+  <data name="QuotationDocumentTypeRetrieved" xml:space="preserve">
+    <value>Teklif doküman tipi başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationDocumentTypeCreated" xml:space="preserve">
+    <value>Teklif doküman tipi başarıyla oluşturuldu.</value>
+  </data>
+  <data name="QuotationDocumentTypeUpdated" xml:space="preserve">
+    <value>Teklif doküman tipi başarıyla güncellendi.</value>
+  </data>
+  <data name="QuotationDocumentTypeDeleted" xml:space="preserve">
+    <value>Teklif doküman tipi başarıyla silindi.</value>
+  </data>
+
+  <!-- Approval Workflow Messages -->
+  <data name="ApprovalWorkflowsRetrieved" xml:space="preserve">
+    <value>Onay iş akışları başarıyla getirildi.</value>
+  </data>
+  <data name="ApprovalWorkflowNotFound" xml:space="preserve">
+    <value>Onay iş akışı bulunamadı.</value>
+  </data>
+  <data name="ApprovalWorkflowRetrieved" xml:space="preserve">
+    <value>Onay iş akışı başarıyla getirildi.</value>
+  </data>
+  <data name="ApprovalWorkflowCreated" xml:space="preserve">
+    <value>Onay iş akışı başarıyla oluşturuldu.</value>
+  </data>
+  <data name="ApprovalWorkflowUpdated" xml:space="preserve">
+    <value>Onay iş akışı başarıyla güncellendi.</value>
+  </data>
+  <data name="ApprovalWorkflowDeleted" xml:space="preserve">
+    <value>Onay iş akışı başarıyla silindi.</value>
+  </data>
+
+  <!-- Quotation Line Approval Messages -->
+  <data name="QuotationLineApprovalsRetrieved" xml:space="preserve">
+    <value>Teklif satır onayları başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationLineApprovalNotFound" xml:space="preserve">
+    <value>Teklif satır onayı bulunamadı.</value>
+  </data>
+  <data name="QuotationLineApprovalRetrieved" xml:space="preserve">
+    <value>Teklif satır onayı başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationLineApprovalCreated" xml:space="preserve">
+    <value>Teklif satır onayı başarıyla oluşturuldu.</value>
+  </data>
+  <data name="QuotationLineApprovalUpdated" xml:space="preserve">
+    <value>Teklif satır onayı başarıyla güncellendi.</value>
+  </data>
+  <data name="QuotationLineApprovalDeleted" xml:space="preserve">
+    <value>Teklif satır onayı başarıyla silindi.</value>
+  </data>
+
+  <!-- Quotation Approval Messages -->
+  <data name="QuotationApprovalsRetrieved" xml:space="preserve">
+    <value>Teklif onayları başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationApprovalNotFound" xml:space="preserve">
+    <value>Teklif onayı bulunamadı.</value>
+  </data>
+  <data name="QuotationApprovalRetrieved" xml:space="preserve">
+    <value>Teklif onayı başarıyla getirildi.</value>
+  </data>
+  <data name="QuotationApprovalCreated" xml:space="preserve">
+    <value>Teklif onayı başarıyla oluşturuldu.</value>
+  </data>
+  <data name="QuotationApprovalUpdated" xml:space="preserve">
+    <value>Teklif onayı başarıyla güncellendi.</value>
+  </data>
+  <data name="QuotationApprovalDeleted" xml:space="preserve">
+    <value>Teklif onayı başarıyla silindi.</value>
+  </data>
 </root>

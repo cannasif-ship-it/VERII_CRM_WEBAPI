@@ -112,7 +112,6 @@ namespace cms_webapi.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while getting OnHand Quantity records");
                 return ApiResponse<IEnumerable<RII_FN_ONHANDQUANTITY>>.ErrorResult(_localizationService.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
             }
         }
