@@ -9,5 +9,6 @@ namespace cms_webapi.Interfaces
         Task<ApiResponse<QuotationDocumentTypeDto>> CreateAsync(CreateQuotationDocumentTypeDto dto);
         Task<ApiResponse<QuotationDocumentTypeDto>> UpdateAsync(long id, UpdateQuotationDocumentTypeDto dto);
         Task<ApiResponse<object>> DeleteAsync(long id);
+        Task<ApiResponse<string>> GenerateQuotationNumberAsync(long customerTypeId);
     }
 }

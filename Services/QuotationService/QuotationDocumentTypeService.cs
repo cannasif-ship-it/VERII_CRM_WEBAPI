@@ -98,5 +98,23 @@ namespace cms_webapi.Services
                 return ApiResponse<object>.ErrorResult(_loc.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
             }
         }
+
+        public async Task<ApiResponse<string>> GenerateQuotationNumberAsync(long customerTypeId)
+        {
+            try
+            {
+                var docType = (await _uow.QuotationDocumentTypes.FindAsync(x => x.customerTypeId == customerTypeId)).FirstOrDefault();
+                var prefix = docType?.DocumentTypeName ?? "Q";
+                var year = DateTime.Now.Year.ToString();
+                var existing = await _uow.Quotations.FindAsync(q => q.Year == year && q.OfferNo != null && q.OfferNo.StartsWith(prefix + "-" + year));
+                var seq = existing.Count() + 1;
+                return ApiResponse<string>.SuccessResult($"{prefix}-{year}-{seq:D8}", _loc.GetLocalizedString("QuotationNumberGenerated"));
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<string>.ErrorResult(_loc.GetLocalizedString("InternalServerError"), ex.Message, StatusCodes.Status500InternalServerError);
+            }
+        }
+        
     }
 }

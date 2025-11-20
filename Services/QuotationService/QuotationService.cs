@@ -13,14 +13,18 @@ namespace cms_webapi.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILocalizationService _localizationService;
-        private readonly IDocumentNumberService _documentNumberService;
+        private readonly IQuotationDocumentTypeService _quotationDocumentTypeService;
 
-        public QuotationService(IUnitOfWork unitOfWork, IMapper mapper, ILocalizationService localizationService, IDocumentNumberService documentNumberService)
+        public QuotationService(
+            IUnitOfWork unitOfWork,
+            IMapper mapper,
+            ILocalizationService localizationService,
+            IQuotationDocumentTypeService quotationDocumentTypeService) 
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _localizationService = localizationService;
-            _documentNumberService = documentNumberService;
+            _quotationDocumentTypeService = quotationDocumentTypeService;
         }
 
         public async Task<ApiResponse<List<QuotationGetDto>>> GetAllQuotationsAsync()
@@ -181,12 +185,19 @@ namespace cms_webapi.Services
             try
             {
                 await _unitOfWork.BeginTransactionAsync();
-
-                var offerNo = await _documentNumberService.GenerateQuotationNumberAsync(dto.customerTypeId);
+                var offerNo = string.Empty;
+                var offerNoResponse = await _quotationDocumentTypeService.GenerateQuotationNumberAsync(dto.customerTypeId);
+                if (offerNoResponse.Success)
+                {
+                    offerNo = offerNoResponse.Data;
+                }
+                else
+                {
+                    return ApiResponse<CreateBulkQuotationResultDto>.ErrorResult(offerNoResponse.Message, offerNoResponse.ExceptionMessage, offerNoResponse.StatusCode);
+                }
 
                 var quotation = _mapper.Map<Quotation>(dto.Header);
                 quotation.OfferNo = offerNo;
-                quotation.CreatedDate = DateTime.UtcNow;
 
                 await _unitOfWork.Quotations.AddAsync(quotation);
                 await _unitOfWork.SaveChangesAsync();
