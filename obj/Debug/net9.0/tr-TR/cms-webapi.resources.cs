@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("cms-webapi")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute(" ")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4533f9b1ea71dda039b875658a644545c4e5dbcf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e10bc9c5c8fbadb6e8d21b7160313df648623b3")]
 [assembly: System.Reflection.AssemblyProductAttribute("cms-webapi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("cms-webapi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

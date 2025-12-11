@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   
-  <!-- Authentication Messages -->
+  <!-- #region Services.AuthService -->
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Invalid email or password.</value>
   </data>
@@ -75,8 +75,9 @@
   <data name="UsernameAlreadyExists" xml:space="preserve">
     <value>Username already exists.</value>
   </data>
+  <!-- #endregion Services.AuthService -->
   
-  <!-- User Messages -->
+  <!-- #region Services.UserService -->
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found.</value>
   </data>
@@ -95,6 +96,7 @@
   <data name="UsersRetrieved" xml:space="preserve">
     <value>Users retrieved successfully.</value>
   </data>
+  <!-- #endregion Services.UserService -->
   
   <!-- General Messages -->
   <data name="ValidationError" xml:space="preserve">
@@ -113,7 +115,7 @@
     <value>Your account is not active.</value>
   </data>
   
-  <!-- City Messages -->
+  <!-- #region Services.CityService -->
   <data name="CitiesRetrieved" xml:space="preserve">
     <value>Cities retrieved successfully.</value>
   </data>
@@ -147,8 +149,9 @@
   <data name="ErrorDeletingCity" xml:space="preserve">
     <value>An error occurred while deleting the city.</value>
   </data>
+  <!-- #endregion Services.CityService -->
   
-  <!-- Country Messages -->
+  <!-- #region Services.CountryService -->
   <data name="CountriesRetrieved" xml:space="preserve">
     <value>Countries retrieved successfully.</value>
   </data>
@@ -182,8 +185,9 @@
   <data name="ErrorDeletingCountry" xml:space="preserve">
     <value>An error occurred while deleting the country.</value>
   </data>
+  <!-- #endregion Services.CountryService -->
   
-  <!-- District Messages -->
+  <!-- #region Services.DistrictService -->
   <data name="DistrictsRetrieved" xml:space="preserve">
     <value>Districts retrieved successfully.</value>
   </data>
@@ -217,8 +221,9 @@
   <data name="ErrorDeletingDistrict" xml:space="preserve">
     <value>An error occurred while deleting the district.</value>
   </data>
+  <!-- #endregion Services.DistrictService -->
   
-  <!-- Title Messages -->
+  <!-- #region Services.TitleService -->
   <data name="TitlesRetrieved" xml:space="preserve">
     <value>Titles retrieved successfully.</value>
   </data>
@@ -252,8 +257,9 @@
   <data name="ErrorDeletingTitle" xml:space="preserve">
     <value>An error occurred while deleting the title.</value>
   </data>
+  <!-- #endregion Services.TitleService -->
   
-  <!-- Customer Messages -->
+  <!-- #region Services.CustomerService -->
   <data name="CustomersRetrieved" xml:space="preserve">
     <value>Customers retrieved successfully.</value>
   </data>
@@ -287,8 +293,9 @@
   <data name="ErrorDeletingCustomer" xml:space="preserve">
     <value>An error occurred while deleting the customer.</value>
   </data>
+  <!-- #endregion Services.CustomerService -->
   
-  <!-- Customer Type Messages -->
+  <!-- #region Services.CustomerTypeService -->
   <data name="CustomerTypesRetrieved" xml:space="preserve">
     <value>Customer types retrieved successfully.</value>
   </data>
@@ -322,8 +329,9 @@
   <data name="ErrorDeletingCustomerType" xml:space="preserve">
     <value>An error occurred while deleting the customer type.</value>
   </data>
+  <!-- #endregion Services.CustomerTypeService -->
   
-  <!-- Contact Messages -->
+  <!-- #region Services.ContactService -->
   <data name="ContactsRetrieved" xml:space="preserve">
     <value>Contacts retrieved successfully.</value>
   </data>
@@ -357,8 +365,9 @@
   <data name="ErrorDeletingContact" xml:space="preserve">
     <value>An error occurred while deleting the contact.</value>
   </data>
+  <!-- #endregion Services.ContactService -->
   
-  <!-- Activity Messages -->
+  <!-- #region Services.ActivityService -->
   <data name="ActivitiesRetrieved" xml:space="preserve">
     <value>Activities retrieved successfully.</value>
   </data>
@@ -377,8 +386,9 @@
   <data name="ActivityDeleted" xml:space="preserve">
     <value>Activity deleted successfully.</value>
   </data>
+  <!-- #endregion Services.ActivityService -->
   
-  <!-- Product Pricing Messages -->
+  <!-- #region Services.ProductPricingService -->
   <data name="ProductPricingsRetrieved" xml:space="preserve">
     <value>Product pricings retrieved successfully.</value>
   </data>
@@ -397,8 +407,9 @@
   <data name="ProductPricingDeleted" xml:space="preserve">
     <value>Product pricing deleted successfully.</value>
   </data>
+  <!-- #endregion Services.ProductPricingService -->
   
-  <!-- Product Pricing Group By Messages -->
+  <!-- #region Services.ProductPricingGroupByService -->
   <data name="ProductPricingGroupBysRetrieved" xml:space="preserve">
     <value>Product pricing group bys retrieved successfully.</value>
   </data>
@@ -417,8 +428,9 @@
   <data name="ProductPricingGroupByDeleted" xml:space="preserve">
     <value>Product pricing group by deleted successfully.</value>
   </data>
+  <!-- #endregion Services.ProductPricingGroupByService -->
   
-  <!-- User Discount Limit Messages -->
+  <!-- #region Services.UserDiscountLimitService -->
   <data name="UserDiscountLimitsRetrieved" xml:space="preserve">
     <value>User discount limits retrieved successfully.</value>
   </data>
@@ -440,13 +452,15 @@
   <data name="UserDiscountLimitExistsChecked" xml:space="preserve">
     <value>User discount limit existence checked successfully.</value>
   </data>
+  <!-- #endregion Services.UserDiscountLimitService -->
   
-  <!-- Additional User Messages -->
+  <!-- #region Services.UserService (Additional) -->
   <data name="UserAlreadyExists" xml:space="preserve">
     <value>User already exists.</value>
   </data>
+  <!-- #endregion Services.UserService (Additional) -->
   
-  <!-- ERP Messages -->
+  <!-- #region Services.ErpService -->
   <data name="CariRecordsRetrieved" xml:space="preserve">
     <value>Cari records retrieved successfully.</value>
   </data>
@@ -483,8 +497,9 @@
   <data name="ErpConnectionFailed" xml:space="preserve">
     <value>ERP connection failed.</value>
   </data>
+  <!-- #endregion Services.ErpService -->
   
-  <!-- Payment Type Messages -->
+  <!-- #region Services.PaymentTypeService -->
   <data name="PaymentTypesRetrieved" xml:space="preserve">
     <value>Payment types retrieved successfully.</value>
   </data>
@@ -503,8 +518,9 @@
   <data name="PaymentTypeDeleted" xml:space="preserve">
     <value>Payment type deleted successfully.</value>
   </data>
+  <!-- #endregion Services.PaymentTypeService -->
   
-  <!-- Shipping Address Messages -->
+  <!-- #region Services.ShippingAddressService -->
   <data name="ShippingAddressesRetrieved" xml:space="preserve">
     <value>Shipping addresses retrieved successfully.</value>
   </data>
@@ -526,8 +542,9 @@
   <data name="ShippingAddressesByCustomerRetrieved" xml:space="preserve">
     <value>Customer shipping addresses retrieved successfully.</value>
   </data>
+  <!-- #endregion Services.ShippingAddressService -->
   
-  <!-- Quotation Messages -->
+  <!-- #region Services.QuotationService -->
   <data name="QuotationsRetrieved" xml:space="preserve">
     <value>Quotations retrieved successfully.</value>
   </data>
@@ -555,8 +572,9 @@
   <data name="QuotationsByStatusRetrieved" xml:space="preserve">
     <value>Quotations by status retrieved successfully.</value>
   </data>
+  <!-- #endregion Services.QuotationService -->
   
-  <!-- Quotation Line Messages -->
+  <!-- #region Services.QuotationLineService -->
   <data name="QuotationLinesRetrieved" xml:space="preserve">
     <value>Quotation lines retrieved successfully.</value>
   </data>
@@ -593,7 +611,8 @@
   <data name="QuotationLinesByQuotationRetrieved" xml:space="preserve">
     <value>Quotation lines by quotation retrieved successfully.</value>
   </data>
-  <!-- Quotation Document Type Messages -->
+  <!-- #endregion Services.QuotationLineService -->
+  <!-- #region Services.QuotationDocumentTypeService -->
   <data name="QuotationDocumentTypesRetrieved" xml:space="preserve">
     <value>Quotation document types retrieved successfully.</value>
   </data>
@@ -612,8 +631,12 @@
   <data name="QuotationDocumentTypeDeleted" xml:space="preserve">
     <value>Quotation document type deleted successfully.</value>
   </data>
-
-  <!-- Approval Workflow Messages -->
+  <data name="QuotationNumberGenerated" xml:space="preserve">
+    <value>Quotation number generated successfully.</value>
+  </data>
+  <!-- #endregion Services.QuotationDocumentTypeService -->
+  
+  <!-- #region Services.ApprovalWorkflowService -->
   <data name="ApprovalWorkflowsRetrieved" xml:space="preserve">
     <value>Approval workflows retrieved successfully.</value>
   </data>
@@ -632,8 +655,9 @@
   <data name="ApprovalWorkflowDeleted" xml:space="preserve">
     <value>Approval workflow deleted successfully.</value>
   </data>
+  <!-- #endregion Services.ApprovalWorkflowService -->
 
-  <!-- Quotation Line Approval Messages -->
+  <!-- #region Services.QuotationLineApprovalService -->
   <data name="QuotationLineApprovalsRetrieved" xml:space="preserve">
     <value>Quotation line approvals retrieved successfully.</value>
   </data>
@@ -652,8 +676,9 @@
   <data name="QuotationLineApprovalDeleted" xml:space="preserve">
     <value>Quotation line approval deleted successfully.</value>
   </data>
+  <!-- #endregion Services.QuotationLineApprovalService -->
 
-  <!-- Quotation Approval Messages -->
+  <!-- #region Services.QuotationApprovalService -->
   <data name="QuotationApprovalsRetrieved" xml:space="preserve">
     <value>Quotation approvals retrieved successfully.</value>
   </data>
@@ -672,4 +697,5 @@
   <data name="QuotationApprovalDeleted" xml:space="preserve">
     <value>Quotation approval deleted successfully.</value>
   </data>
+  <!-- #endregion Services.QuotationApprovalService -->
 </root>

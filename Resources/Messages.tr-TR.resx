@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   
-  <!-- Authentication Messages -->
+  <!-- #region Services.AuthService -->
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Geçersiz e-posta veya şifre.</value>
   </data>
@@ -75,8 +75,9 @@
   <data name="UsernameAlreadyExists" xml:space="preserve">
     <value>Kullanıcı adı zaten mevcut.</value>
   </data>
+  <!-- #endregion Services.AuthService -->
   
-  <!-- User Messages -->
+  <!-- #region Services.UserService -->
   <data name="UserNotFound" xml:space="preserve">
     <value>Kullanıcı bulunamadı.</value>
   </data>
@@ -95,6 +96,7 @@
   <data name="UsersRetrieved" xml:space="preserve">
     <value>Kullanıcılar başarıyla getirildi.</value>
   </data>
+  <!-- #endregion Services.UserService -->
   
   <!-- General Messages -->
   <data name="ValidationError" xml:space="preserve">
@@ -113,7 +115,7 @@
     <value>Hesabınız aktif değil.</value>
   </data>
   
-  <!-- City Messages -->
+  <!-- #region Services.CityService -->
   <data name="CitiesRetrieved" xml:space="preserve">
     <value>Şehirler başarıyla getirildi.</value>
   </data>
@@ -147,8 +149,9 @@
   <data name="ErrorDeletingCity" xml:space="preserve">
     <value>Şehir silinirken bir hata oluştu.</value>
   </data>
+  <!-- #endregion Services.CityService -->
   
-  <!-- Country Messages -->
+  <!-- #region Services.CountryService -->
   <data name="CountriesRetrieved" xml:space="preserve">
     <value>Ülkeler başarıyla getirildi.</value>
   </data>
@@ -182,8 +185,9 @@
   <data name="ErrorDeletingCountry" xml:space="preserve">
     <value>Ülke silinirken bir hata oluştu.</value>
   </data>
+  <!-- #endregion Services.CountryService -->
   
-  <!-- District Messages -->
+  <!-- #region Services.DistrictService -->
   <data name="DistrictsRetrieved" xml:space="preserve">
     <value>İlçeler başarıyla getirildi.</value>
   </data>
@@ -217,8 +221,9 @@
   <data name="ErrorDeletingDistrict" xml:space="preserve">
     <value>İlçe silinirken bir hata oluştu.</value>
   </data>
+  <!-- #endregion Services.DistrictService -->
   
-  <!-- Title Messages -->
+  <!-- #region Services.TitleService -->
   <data name="TitlesRetrieved" xml:space="preserve">
     <value>Unvanlar başarıyla getirildi.</value>
   </data>
@@ -252,8 +257,9 @@
   <data name="ErrorDeletingTitle" xml:space="preserve">
     <value>Unvan silinirken bir hata oluştu.</value>
   </data>
+  <!-- #endregion Services.TitleService -->
   
-  <!-- Customer Messages -->
+  <!-- #region Services.CustomerService -->
   <data name="CustomersRetrieved" xml:space="preserve">
     <value>Müşteriler başarıyla getirildi.</value>
   </data>
@@ -287,8 +293,9 @@
   <data name="ErrorDeletingCustomer" xml:space="preserve">
     <value>Müşteri silinirken bir hata oluştu.</value>
   </data>
+  <!-- #endregion Services.CustomerService -->
   
-  <!-- Customer Type Messages -->
+  <!-- #region Services.CustomerTypeService -->
   <data name="CustomerTypesRetrieved" xml:space="preserve">
     <value>Müşteri türleri başarıyla getirildi.</value>
   </data>
@@ -322,8 +329,9 @@
   <data name="ErrorDeletingCustomerType" xml:space="preserve">
     <value>Müşteri türü silinirken bir hata oluştu.</value>
   </data>
+  <!-- #endregion Services.CustomerTypeService -->
   
-  <!-- Contact Messages -->
+  <!-- #region Services.ContactService -->
   <data name="ContactsRetrieved" xml:space="preserve">
     <value>İletişim bilgileri başarıyla getirildi.</value>
   </data>
@@ -357,8 +365,9 @@
   <data name="ErrorDeletingContact" xml:space="preserve">
     <value>İletişim bilgisi silinirken bir hata oluştu.</value>
   </data>
+  <!-- #endregion Services.ContactService -->
   
-  <!-- Activity Messages -->
+  <!-- #region Services.ActivityService -->
   <data name="ActivitiesRetrieved" xml:space="preserve">
     <value>Aktiviteler başarıyla getirildi.</value>
   </data>
@@ -377,8 +386,9 @@
   <data name="ActivityDeleted" xml:space="preserve">
     <value>Aktivite başarıyla silindi.</value>
   </data>
+  <!-- #endregion Services.ActivityService -->
   
-  <!-- Product Pricing Messages -->
+  <!-- #region Services.ProductPricingService -->
   <data name="ProductPricingsRetrieved" xml:space="preserve">
     <value>Ürün fiyatlandırmaları başarıyla getirildi.</value>
   </data>
@@ -397,8 +407,9 @@
   <data name="ProductPricingDeleted" xml:space="preserve">
     <value>Ürün fiyatlandırması başarıyla silindi.</value>
   </data>
+  <!-- #endregion Services.ProductPricingService -->
   
-  <!-- Product Pricing Group By Messages -->
+  <!-- #region Services.ProductPricingGroupByService -->
   <data name="ProductPricingGroupBysRetrieved" xml:space="preserve">
     <value>Ürün fiyatlandırma grupları başarıyla getirildi.</value>
   </data>
@@ -417,8 +428,9 @@
   <data name="ProductPricingGroupByDeleted" xml:space="preserve">
     <value>Ürün fiyatlandırma grubu başarıyla silindi.</value>
   </data>
+  <!-- #endregion Services.ProductPricingGroupByService -->
   
-  <!-- User Discount Limit Messages -->
+  <!-- #region Services.UserDiscountLimitService -->
   <data name="UserDiscountLimitsRetrieved" xml:space="preserve">
     <value>Kullanıcı indirim limitleri başarıyla getirildi.</value>
   </data>
@@ -440,13 +452,15 @@
   <data name="UserDiscountLimitExistsChecked" xml:space="preserve">
     <value>Kullanıcı indirim limiti varlığı başarıyla kontrol edildi.</value>
   </data>
+  <!-- #endregion Services.UserDiscountLimitService -->
   
-  <!-- Additional User Messages -->
+  <!-- #region Services.UserService (Ek) -->
   <data name="UserAlreadyExists" xml:space="preserve">
     <value>Kullanıcı zaten mevcut.</value>
   </data>
+  <!-- #endregion Services.UserService (Ek) -->
   
-  <!-- ERP Messages -->
+  <!-- #region Services.ErpService -->
   <data name="CariRecordsRetrieved" xml:space="preserve">
     <value>Cari kayıtları başarıyla getirildi.</value>
   </data>
@@ -483,8 +497,9 @@
   <data name="ErpConnectionFailed" xml:space="preserve">
     <value>ERP bağlantısı başarısız.</value>
   </data>
+  <!-- #endregion Services.ErpService -->
   
-  <!-- Payment Type Messages -->
+  <!-- #region Services.PaymentTypeService -->
   <data name="PaymentTypesRetrieved" xml:space="preserve">
     <value>Ödeme tipleri başarıyla getirildi.</value>
   </data>
@@ -503,8 +518,9 @@
   <data name="PaymentTypeDeleted" xml:space="preserve">
     <value>Ödeme tipi başarıyla silindi.</value>
   </data>
+  <!-- #endregion Services.PaymentTypeService -->
   
-  <!-- Shipping Address Messages -->
+  <!-- #region Services.ShippingAddressService -->
   <data name="ShippingAddressesRetrieved" xml:space="preserve">
     <value>Sevk adresleri başarıyla getirildi.</value>
   </data>
@@ -526,8 +542,9 @@
   <data name="ShippingAddressesByCustomerRetrieved" xml:space="preserve">
     <value>Müşteri sevk adresleri başarıyla getirildi.</value>
   </data>
+  <!-- #endregion Services.ShippingAddressService -->
   
-  <!-- Quotation Messages -->
+  <!-- #region Services.QuotationService -->
   <data name="QuotationsRetrieved" xml:space="preserve">
     <value>Teklifler başarıyla getirildi.</value>
   </data>
@@ -555,8 +572,9 @@
   <data name="QuotationsByStatusRetrieved" xml:space="preserve">
     <value>Durum teklifleri başarıyla getirildi.</value>
   </data>
+  <!-- #endregion Services.QuotationService -->
   
-  <!-- Quotation Line Messages -->
+  <!-- #region Services.QuotationLineService -->
   <data name="QuotationLinesRetrieved" xml:space="preserve">
     <value>Teklif satırları başarıyla getirildi.</value>
   </data>
@@ -593,7 +611,8 @@
   <data name="QuotationLinesByQuotationRetrieved" xml:space="preserve">
     <value>Teklife göre teklif satırları başarıyla getirildi.</value>
   </data>
-  <!-- Quotation Document Type Messages -->
+  <!-- #endregion Services.QuotationLineService -->
+  <!-- #region Services.QuotationDocumentTypeService -->
   <data name="QuotationDocumentTypesRetrieved" xml:space="preserve">
     <value>Teklif doküman tipleri başarıyla getirildi.</value>
   </data>
@@ -612,8 +631,12 @@
   <data name="QuotationDocumentTypeDeleted" xml:space="preserve">
     <value>Teklif doküman tipi başarıyla silindi.</value>
   </data>
-
-  <!-- Approval Workflow Messages -->
+  <data name="QuotationNumberGenerated" xml:space="preserve">
+    <value>Teklif numarası başarıyla üretildi.</value>
+  </data>
+  <!-- #endregion Services.QuotationDocumentTypeService -->
+  
+  <!-- #region Services.ApprovalWorkflowService -->
   <data name="ApprovalWorkflowsRetrieved" xml:space="preserve">
     <value>Onay iş akışları başarıyla getirildi.</value>
   </data>
@@ -632,8 +655,9 @@
   <data name="ApprovalWorkflowDeleted" xml:space="preserve">
     <value>Onay iş akışı başarıyla silindi.</value>
   </data>
+  <!-- #endregion Services.ApprovalWorkflowService -->
 
-  <!-- Quotation Line Approval Messages -->
+  <!-- #region Services.QuotationLineApprovalService -->
   <data name="QuotationLineApprovalsRetrieved" xml:space="preserve">
     <value>Teklif satır onayları başarıyla getirildi.</value>
   </data>
@@ -652,8 +676,9 @@
   <data name="QuotationLineApprovalDeleted" xml:space="preserve">
     <value>Teklif satır onayı başarıyla silindi.</value>
   </data>
+  <!-- #endregion Services.QuotationLineApprovalService -->
 
-  <!-- Quotation Approval Messages -->
+  <!-- #region Services.QuotationApprovalService -->
   <data name="QuotationApprovalsRetrieved" xml:space="preserve">
     <value>Teklif onayları başarıyla getirildi.</value>
   </data>
@@ -672,4 +697,5 @@
   <data name="QuotationApprovalDeleted" xml:space="preserve">
     <value>Teklif onayı başarıyla silindi.</value>
   </data>
+  <!-- #endregion Services.QuotationApprovalService -->
 </root>
