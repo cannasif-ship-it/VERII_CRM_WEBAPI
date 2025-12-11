@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cms_webapi.DTOs
 {
-    public class QuotationDto
+    public class QuotationDto : BaseHeaderEntityDto
     {
-        public long Id { get; set; }
-        public string Year { get; set; } = string.Empty;
         public long? PotentialCustomerId { get; set; }
         public string? PotentialCustomerName { get; set; }
         public string? ErpCustomerCode { get; set; }
@@ -26,8 +24,6 @@ namespace cms_webapi.DTOs
         public long? RevisionId { get; set; }
         public string Currency { get; set; } = string.Empty;
         public double? ExchangeRate { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
     }
@@ -114,10 +110,8 @@ namespace cms_webapi.DTOs
         public double? ExchangeRate { get; set; }
     }
 
-    public class QuotationGetDto
+    public class QuotationGetDto : BaseHeaderEntityDto
     {
-        public long Id { get; set; }
-        public string Year { get; set; } = string.Empty;
         public long? PotentialCustomerId { get; set; }
         public string? PotentialCustomerName { get; set; }
         public string? ErpCustomerCode { get; set; }
@@ -137,8 +131,6 @@ namespace cms_webapi.DTOs
         public long? RevisionId { get; set; }
         public string Currency { get; set; } = string.Empty;
         public double? ExchangeRate { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
     }

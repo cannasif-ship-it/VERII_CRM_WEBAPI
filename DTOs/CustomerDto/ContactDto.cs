@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cms_webapi.DTOs
 {
-    public class ContactDto
+    public class ContactDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public string FullName { get; set; } = string.Empty;
         public string? Email { get; set; }
         public string? Phone { get; set; }
@@ -15,13 +14,7 @@ namespace cms_webapi.DTOs
         public string? CustomerName { get; set; }
         public long TitleId { get; set; }
         public string? TitleName { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
         
-        // Full user information properties
-        public string? CreatedByFullUser { get; set; }
-        public string? UpdatedByFullUser { get; set; }
-        public string? DeletedByFullUser { get; set; }
     }
 
     public class CreateContactDto

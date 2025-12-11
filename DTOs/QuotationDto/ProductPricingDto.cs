@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cms_webapi.DTOs
 {
-    public class ProductPricingDto
+    public class ProductPricingDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public string ErpProductCode { get; set; } = string.Empty;
         public string ErpGroupCode { get; set; } = string.Empty;
         public decimal ListPrice { get; set; }
@@ -13,10 +12,6 @@ namespace cms_webapi.DTOs
         public decimal? Discount1 { get; set; }
         public decimal? Discount2 { get; set; }
         public decimal? Discount3 { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public DateTime? DeletedDate { get; set; }
-        public bool IsDeleted { get; set; }
     }
 
     public class CreateProductPricingDto

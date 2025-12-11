@@ -4,41 +4,12 @@ using cms_webapi.Models;
 
 namespace cms_webapi.Data.Configurations
 {
-    public class PaymentTypeConfiguration : IEntityTypeConfiguration<PaymentType>
+    public class PaymentTypeConfiguration : BaseEntityConfiguration<PaymentType>
     {
-        public void Configure(EntityTypeBuilder<PaymentType> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<PaymentType> builder)
         {
-            // Table name
             builder.ToTable("RII_PAYMENT_TYPE");
 
-            // Primary key
-            builder.HasKey(e => e.Id);
-
-            // Base properties configuration
-            builder.Property(e => e.Id)
-                .ValueGeneratedOnAdd();
-
-            builder.Property(e => e.CreatedDate)
-                .IsRequired()
-                .HasDefaultValueSql("GETUTCDATE()");
-
-            builder.Property(e => e.UpdatedDate)
-                .IsRequired(false);
-
-            builder.Property(e => e.DeletedDate)
-                .IsRequired(false);
-
-            // Audit fields are long? (FK to User); no MaxLength configs required
-            builder.Property(e => e.CreatedBy)
-                .IsRequired(false);
-
-            builder.Property(e => e.UpdatedBy)
-                .IsRequired(false);
-
-            builder.Property(e => e.DeletedBy)
-                .IsRequired(false);
-
-            // PaymentType specific properties
             builder.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(100)
@@ -49,14 +20,12 @@ namespace cms_webapi.Data.Configurations
                 .HasMaxLength(500)
                 .HasColumnType("nvarchar(500)");
 
-            // Indexes
             builder.HasIndex(e => e.Name)
                 .HasDatabaseName("IX_PaymentType_Name");
 
             builder.HasIndex(e => e.CreatedDate)
                 .HasDatabaseName("IX_PaymentType_CreatedDate");
 
-            // Query filter for soft delete
             builder.HasQueryFilter(e => !e.IsDeleted);
         }
     }

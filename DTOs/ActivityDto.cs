@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cms_webapi.DTOs
 {
-    public class ActivityDto
+    public class ActivityDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public string Subject { get; set; } = string.Empty;
         public string? Description { get; set; }
         public string ActivityType { get; set; } = string.Empty;
@@ -19,9 +18,7 @@ namespace cms_webapi.DTOs
         public ContactDto? Contact { get; set; }
         public long? AssignedUserId { get; set; }
         public UserDto? AssignedUser { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public bool IsDeleted { get; set; }
+        
     }
 
     public class CreateActivityDto

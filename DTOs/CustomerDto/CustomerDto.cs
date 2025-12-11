@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cms_webapi.DTOs
 {
-    public class CustomerGetDto
+    public class CustomerGetDto : BaseHeaderEntityDto
     {
-        public long Id { get; set; }
         public string CustomerCode { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string? TaxNumber { get; set; }
@@ -24,16 +23,9 @@ namespace cms_webapi.DTOs
         public string? CustomerTypeName { get; set; }
         public string? ERPCode { get; set; }
         public DateTime? CompletedDate { get; set; }
-        public bool IsCompleted { get; set; }
         public bool IsApproved { get; set; }
-        public bool IsERPIntegrated { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
         
-        // Full user information properties
-        public string? CreatedByFullUser { get; set; }
-        public string? UpdatedByFullUser { get; set; }
-        public string? DeletedByFullUser { get; set; }
+        
     }
 
     public class CustomerCreateDto

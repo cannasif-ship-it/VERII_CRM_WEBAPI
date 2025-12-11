@@ -4,35 +4,12 @@ using cms_webapi.Models;
 
 namespace cms_webapi.Data.Configurations
 {
-    public class ProductPricingConfiguration : IEntityTypeConfiguration<ProductPricing>
+    public class ProductPricingConfiguration : BaseEntityConfiguration<ProductPricing>
     {
-        public void Configure(EntityTypeBuilder<ProductPricing> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<ProductPricing> builder)
         {
-            // Table name
             builder.ToTable("RII_PRODUCT_PRICING");
 
-            // Primary key
-            builder.HasKey(e => e.Id);
-
-            // Base properties configuration
-            builder.Property(e => e.Id)
-                .ValueGeneratedOnAdd();
-
-            builder.Property(e => e.CreatedDate)
-                .IsRequired()
-                .HasDefaultValueSql("GETUTCDATE()");
-
-            builder.Property(e => e.UpdatedDate)
-                .IsRequired(false);
-
-            builder.Property(e => e.DeletedDate)
-                .IsRequired(false);
-
-            builder.Property(e => e.IsDeleted)
-                .IsRequired()
-                .HasDefaultValue(false);
-
-            // ProductPricing specific properties
             builder.Property(e => e.ErpProductCode)
                 .HasMaxLength(50)
                 .IsRequired();
@@ -65,7 +42,6 @@ namespace cms_webapi.Data.Configurations
                 .HasColumnType("decimal(18,6)")
                 .IsRequired(false);
 
-            // Indexes
             builder.HasIndex(e => e.ErpProductCode)
                 .HasDatabaseName("IX_ProductPricing_ErpProductCode");
 
@@ -82,7 +58,6 @@ namespace cms_webapi.Data.Configurations
             builder.HasIndex(e => e.CreatedDate)
                 .HasDatabaseName("IX_ProductPricing_CreatedDate");
 
-            // Query filter for soft delete
             builder.HasQueryFilter(e => !e.IsDeleted);
         }
     }

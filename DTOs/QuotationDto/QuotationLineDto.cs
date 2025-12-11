@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cms_webapi.DTOs
 {
-    public class QuotationLineDto
+    public class QuotationLineDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public long QuotationId { get; set; }
         public long? ProductId { get; set; }
         public string? ProductCode { get; set; } = string.Empty;
@@ -23,8 +22,6 @@ namespace cms_webapi.DTOs
         public decimal LineTotal { get; set; }
         public decimal LineGrandTotal { get; set; }
         public string? Description { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
     }
 
     public class CreateQuotationLineDto
@@ -84,9 +81,8 @@ namespace cms_webapi.DTOs
         public string? Description { get; set; }
     }
 
-    public class QuotationLineGetDto
+    public class QuotationLineGetDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public long QuotationId { get; set; }
         public long? ProductId { get; set; }
         public string? ProductCode { get; set; } = string.Empty;
@@ -104,7 +100,5 @@ namespace cms_webapi.DTOs
         public decimal LineTotal { get; set; }
         public decimal LineGrandTotal { get; set; }
         public string? Description { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
     }
 }

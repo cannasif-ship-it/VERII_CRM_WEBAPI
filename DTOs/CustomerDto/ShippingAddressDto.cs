@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cms_webapi.DTOs
 {
-    public class ShippingAddressDto
+    public class ShippingAddressDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public string Address { get; set; } = string.Empty;
         public string? PostalCode { get; set; }
         public string? ContactPerson { get; set; }
@@ -20,13 +19,7 @@ namespace cms_webapi.DTOs
         public long? DistrictId { get; set; }
         public string? DistrictName { get; set; }
         public bool IsActive { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
         
-        // Full user information properties
-        public string? CreatedByFullUser { get; set; }
-        public string? UpdatedByFullUser { get; set; }
-        public string? DeletedByFullUser { get; set; }
     }
 
     public class CreateShippingAddressDto
@@ -85,9 +78,8 @@ namespace cms_webapi.DTOs
         public long? DistrictId { get; set; }
     }
 
-    public class ShippingAddressGetDto
+    public class ShippingAddressGetDto : BaseEntityDto
     {
-        public long Id { get; set; }
         public string Address { get; set; } = string.Empty;
         public string? PostalCode { get; set; }
         public string? ContactPerson { get; set; }
@@ -102,12 +94,6 @@ namespace cms_webapi.DTOs
         public long? DistrictId { get; set; }
         public string? DistrictName { get; set; }
         public bool IsActive { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
         
-        // Full user information properties
-        public string? CreatedByFullUser { get; set; }
-        public string? UpdatedByFullUser { get; set; }
-        public string? DeletedByFullUser { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using cms_webapi.Models;
 
 namespace cms_webapi.Data.Configurations
 {
-    public class QuotationConfiguration : IEntityTypeConfiguration<Quotation>
+    public class QuotationConfiguration : BaseEntityConfiguration<Quotation>
     {
-        public void Configure(EntityTypeBuilder<Quotation> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<Quotation> builder)
         {
             builder.ToTable("RII_QUOTATION");
             // Key is defined via BaseEntity annotations; map column name
@@ -170,6 +170,7 @@ namespace cms_webapi.Data.Configurations
             builder.HasIndex(e => e.ApprovalStatus);
             builder.HasIndex(e => e.ApprovalDate);
             builder.HasIndex(e => e.IsCompleted);
+            builder.HasQueryFilter(e => !e.IsDeleted);
         }
     }
 }
